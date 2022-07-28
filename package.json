@@ -6,7 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "start:trixie:prod": "pm2 start pm2.config.js --env production",
+    "start:trixie:prod": "pm2 start ./dist/apps/trixie/pm2.config.js --env production",
     "start:all": "nx run-many --target=serve --all=true",
     "build:all:prod": "nx run-many --target=build --all=true --prod"
   },
