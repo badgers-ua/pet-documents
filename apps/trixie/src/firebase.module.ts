@@ -9,10 +9,8 @@ import { FB_AUTH_PROVIDER_KEY, FB_BUCKET_PROVIDER_KEY } from './_constants';
 @Module({})
 export class FireBaseModule {
   static forRoot(): DynamicModule {
-    const serviceAccount: ServiceAccount = JSON.parse(
-      environment.fbServiceAccount
-    );
-
+    const serviceAccount: ServiceAccount =
+      environment.fbServiceAccount as ServiceAccount;
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       storageBucket: environment.fbBucketUrl,

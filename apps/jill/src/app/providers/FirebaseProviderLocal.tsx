@@ -11,9 +11,7 @@ import {
 import { environment } from '../../environments/environment';
 import { Children } from '../../types';
 
-const stringifiedFirebaseConfig = (environment.firebaseConfig ?? '').toString();
-
-const firebaseConfig: FirebaseOptions = JSON.parse(stringifiedFirebaseConfig);
+const firebaseConfig: FirebaseOptions = environment.firebaseConfig;
 
 const FirebaseProviderLocal = ({ children }: Children) => {
   return (
