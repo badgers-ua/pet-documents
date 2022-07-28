@@ -17,7 +17,7 @@ import appVersion from '../app-version';
 
 export const environment: any = {
   production: ${1},
-  appVersion: '1.4.0',
+  appVersion,
   apiUrl: ${2},
   firebaseConfig: ${3},
 };
