@@ -3,7 +3,7 @@ echo Installing dependencies
 yarn install --frozen-lockfile
 
 echo Fetching environment variables
-cd ./apps/jill/environments
+cd ./apps/jill/src/environments
 
 touch environment.ts
 touch environment.prod.ts
@@ -17,7 +17,7 @@ export const environment = {
   firebaseConfig: ${3},
 };
 EOF
-cd ../trixie/environments
+cd ../trixie/src/environments
 
 touch environment.ts
 touch environment.prod.ts

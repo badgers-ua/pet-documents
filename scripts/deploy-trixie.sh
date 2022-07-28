@@ -6,7 +6,7 @@ echo Generating pm2 config
 cd ./apps/trixie
 touch pm2.config.js
 
-cat > environment.prod.ts <<EOF
+cat > pm2.config.js <<EOF
 module.exports = {
   apps: [
     {
