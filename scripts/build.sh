@@ -42,10 +42,10 @@ export const environment = {
 };
 EOF
 
-cat ./apps/jill/src/environments/environment.ts
-cat ./apps/jill/src/environments/environment.prod.ts
-cat ./apps/trixie/src/environments/environment.ts
-cat ./apps/trixie/src/environments/environment.prod.ts
+echo ./apps/jill/src/environments/environment.ts
+echo ./apps/jill/src/environments/environment.prod.ts
+echo ./apps/trixie/src/environments/environment.ts
+echo ./apps/trixie/src/environments/environment.prod.ts
 
 echo Building apps
 yarn build:all:prod
