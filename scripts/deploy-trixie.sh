@@ -3,8 +3,7 @@ echo Killing pm2 process
 pm2 stop trixie
 pm2 kill
 echo Generating pm2 config
-cd ./apps/trixie
-touch pm2.config.js
+touch ./dist/apps/trixie/pm2.config.js
 
 cat > pm2.config.js <<EOF
 module.exports = {

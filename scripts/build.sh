@@ -5,13 +5,6 @@ yarn install --frozen-lockfile
 echo Fetching environment variables
 cd ./apps/jill/src/environments
 
-touch environment.ts
-cat > environment.ts <<EOF
-export const environment = {
-  production: false,
-};
-EOF
-
 touch environment.prod.ts
 cat > environment.prod.ts <<EOF
 import appVersion from '../app-version';
@@ -24,13 +17,6 @@ export const environment = {
 };
 EOF
 cd ../../trixie/src/environments
-
-touch environment.ts
-cat > environment.ts <<EOF
-export const environment = {
-  production: false,
-};
-EOF
 
 touch environment.prod.ts
 cat > environment.prod.ts <<EOF
