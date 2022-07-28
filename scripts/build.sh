@@ -3,16 +3,15 @@ echo Installing dependencies
 yarn install --frozen-lockfile
 
 echo Fetching environment variables
-cd ./apps/jill/src/environments
 
-touch environment.ts
+touch ./apps/jill/src/environments/environment.ts
 cat > environment.ts <<EOF
 export const environment = {
   production: false,
 };
 EOF
 
-touch environment.prod.ts
+touch ./apps/jill/src/environments/environment.prod.ts
 cat > environment.prod.ts <<EOF
 import appVersion from '../app-version';
 
@@ -23,15 +22,15 @@ export const environment = {
   firebaseConfig: ${3},
 };
 EOF
-cd ../../trixie/src/environments
 
-touch environment.ts
+touch ./apps/trixie/src/environments/environment.ts
 cat > environment.ts <<EOF
 export const environment = {
   production: false,
 };
 EOF
 
+touch ./apps/trixie/src/environments/environment.prod.ts
 touch environment.prod.ts
 cat > environment.prod.ts <<EOF
 export const environment = {
@@ -42,7 +41,6 @@ export const environment = {
   fbServiceAccount: ${7},
 };
 EOF
-cd ../../
 
 echo Building apps
 yarn build:all:prod
