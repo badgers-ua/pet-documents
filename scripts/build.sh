@@ -5,14 +5,14 @@ yarn install --frozen-lockfile
 echo Fetching environment variables
 
 touch ./apps/jill/src/environments/environment.ts
-cat > environment.ts <<EOF
+cat > ./apps/jill/src/environments/environment.ts <<EOF
 export const environment = {
   production: false,
 };
 EOF
 
 touch ./apps/jill/src/environments/environment.prod.ts
-cat > environment.prod.ts <<EOF
+cat > ./apps/jill/src/environments/environment.prod.ts <<EOF
 import appVersion from '../app-version';
 
 export const environment = {
@@ -24,15 +24,14 @@ export const environment = {
 EOF
 
 touch ./apps/trixie/src/environments/environment.ts
-cat > environment.ts <<EOF
+cat > ./apps/trixie/src/environments/environment.ts <<EOF
 export const environment = {
   production: false,
 };
 EOF
 
 touch ./apps/trixie/src/environments/environment.prod.ts
-touch environment.prod.ts
-cat > environment.prod.ts <<EOF
+cat > ./apps/trixie/src/environments/environment.prod.ts <<EOF
 export const environment = {
   production: ${1},
   databaseUrl: ${4},
@@ -41,11 +40,6 @@ export const environment = {
   fbServiceAccount: ${7},
 };
 EOF
-
-echo ./apps/jill/src/environments/environment.ts
-echo ./apps/jill/src/environments/environment.prod.ts
-echo ./apps/trixie/src/environments/environment.ts
-echo ./apps/trixie/src/environments/environment.prod.ts
 
 echo Building apps
 yarn build:all:prod

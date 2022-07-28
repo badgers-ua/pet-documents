@@ -21,13 +21,6 @@ import { StaticModule } from './static/static.module';
       playground: !environment.production,
       autoSchemaFile: true,
       csrfPrevention: true,
-      cors: {
-        origin: [
-          'https://p-doc.com',
-          'http://localhsot:4200',
-          'https://localhsot:4200',
-        ],
-      },
     }),
     FireBaseModule.forRoot(),
     AuthModule,
