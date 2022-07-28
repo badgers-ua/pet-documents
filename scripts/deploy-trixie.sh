@@ -5,7 +5,7 @@ pm2 kill
 echo Generating pm2 config
 touch ./dist/apps/trixie/pm2.config.js
 
-cat > pm2.config.js <<EOF
+cat > ./dist/apps/trixie/pm2.config.js <<EOF
 module.exports = {
   apps: [
     {
