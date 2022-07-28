@@ -10,7 +10,7 @@ module.exports = {
   apps: [
     {
       name: 'trixie',
-      script: 'main.js',
+      script: './dist/apps/trixie/main.js',
       watch: true,
       env_development: {
         PORT: ${1},
