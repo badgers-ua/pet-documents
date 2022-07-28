@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "trixie": "apps/trixie",
+    "types": "libs/types",
+    "jill": "apps/jill",
+    "jill-e2e": "apps/jill-e2e"
+  }
+}

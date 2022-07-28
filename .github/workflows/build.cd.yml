@@ -1,0 +1,26 @@
+name: Build Apps CD
+
+on:
+  workflow_run:
+    workflows: [Build Apps CI]
+    branches: [main]
+    types: [completed]
+    push:
+      branches: [main]
+
+jobs:
+  build_cd:
+    name: Build CD
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          script: |
+            cd ./pet-documents
+            sh ./scripts/git-pull.sh
+            sh ./scripts/build.sh ${{secrets.JILL_REACT_APP_PRODUCTION}} ${{secrets.JILL_REACT_APP_API_URL}} ${{secrets.JILL_REACT_APP_FIREBASE_CONFIG}} ${{secrets.TRIXIE_DATABASE_URL}} ${{secrets.TRIXIE_PORT}} ${{secrets.TRIXIE_FB_BUCKET_URL}} ${{secrets.TRIXIE_FB_SERVICE_ACCOUNT}}

@@ -1,0 +1,96 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/jill/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["pre-build"],
+      "options": {
+        "commands": [
+          "npx workbox-cli generateSW ./apps/jill/workbox-config.js"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "jill:pre-build",
+        "hmr": true,
+        "proxyConfig": "apps/jill/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "jill:pre-build:development"
+        },
+        "production": {
+          "buildTarget": "jill:pre-build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/jill/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/jill"],
+      "options": {
+        "jestConfig": "apps/jill/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "pre-build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/jill",
+        "index": "apps/jill/src/index.html",
+        "baseHref": "/",
+        "main": "apps/jill/src/main.tsx",
+        "polyfills": "apps/jill/src/polyfills.ts",
+        "tsConfig": "apps/jill/tsconfig.app.json",
+        "assets": [
+          "apps/jill/src/favicon.ico",
+          "apps/jill/src/assets",
+          "apps/jill/src/robots.txt",
+          "apps/jill/src/manifest.json"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/jill/src/environments/environment.ts",
+              "with": "apps/jill/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    }
+  },
+  "tags": []
+}
