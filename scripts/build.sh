@@ -6,7 +6,7 @@ echo Fetching environment variables
 
 touch ./apps/jill/src/environments/environment.ts
 cat > ./apps/jill/src/environments/environment.ts <<EOF
-export const environment = {
+export const environment: any = {
   production: false,
 };
 EOF
@@ -15,7 +15,7 @@ touch ./apps/jill/src/environments/environment.prod.ts
 cat > ./apps/jill/src/environments/environment.prod.ts <<EOF
 import appVersion from '../app-version';
 
-export const environment = {
+export const environment: any = {
   production: ${1},
   appVersion: '1.4.0',
   apiUrl: ${2},
@@ -25,14 +25,14 @@ EOF
 
 touch ./apps/trixie/src/environments/environment.ts
 cat > ./apps/trixie/src/environments/environment.ts <<EOF
-export const environment = {
+export const environment: any = {
   production: false,
 };
 EOF
 
 touch ./apps/trixie/src/environments/environment.prod.ts
 cat > ./apps/trixie/src/environments/environment.prod.ts <<EOF
-export const environment = {
+export const environment: any = {
   production: ${1},
   databaseUrl: ${4},
   port: ${5},
