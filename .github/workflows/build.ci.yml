@@ -28,5 +28,4 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - run: yarn install
       - run: sh ./scripts/build.sh ${{secrets.JILL_REACT_APP_PRODUCTION}} ${{secrets.JILL_REACT_APP_API_URL}} ${{secrets.JILL_REACT_APP_FIREBASE_CONFIG}} ${{secrets.TRIXIE_DATABASE_URL}} ${{secrets.TRIXIE_PORT}} ${{secrets.TRIXIE_FB_BUCKET_URL}} ${{secrets.TRIXIE_FB_SERVICE_ACCOUNT}}
