@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Route as RouteElement } from 'react-router';
 import { Navigate, Routes } from 'react-router-dom';
 import AuthGuard from './components/AuthGuard';
+import Layout from './Layout';
 
 type Route = {
   Component: React.LazyExoticComponent<() => JSX.Element | null>;
@@ -77,7 +78,9 @@ const RoutesLocal = () => {
               element={
                 isProtected ? (
                   <AuthGuard>
-                    <Component />
+                    <Layout>
+                      <Component />
+                    </Layout>
                   </AuthGuard>
                 ) : (
                   <Component />
