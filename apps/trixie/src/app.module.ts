@@ -19,6 +19,7 @@ import { StaticModule } from './static/static.module';
       driver: ApolloDriver,
       debug: !environment.production,
       playground: !environment.production,
+      cache: 'bounded',
       autoSchemaFile: true,
       csrfPrevention: true,
     }),
