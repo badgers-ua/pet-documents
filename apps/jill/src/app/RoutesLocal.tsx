@@ -4,34 +4,32 @@ import { Navigate, Routes } from 'react-router-dom';
 import AuthGuard from './components/AuthGuard';
 
 type Route = {
-  Component: React.LazyExoticComponent<() => JSX.Element>;
+  Component: React.LazyExoticComponent<() => JSX.Element | null>;
   path: string;
   isProtected: boolean;
 };
 
-const HomePage: React.LazyExoticComponent<() => JSX.Element> = React.lazy(
-  () => import('./pages/HomePage'),
-);
+const HomePage: React.LazyExoticComponent<() => JSX.Element | null> =
+  React.lazy(() => import('./pages/HomePage'));
 const CreatePetPage: React.LazyExoticComponent<() => JSX.Element> = React.lazy(
-  () => import('./pages/CreatePetPage'),
+  () => import('./pages/CreatePetPage')
 );
 const UpdatePetPage: React.LazyExoticComponent<() => JSX.Element> = React.lazy(
-  () => import('./pages/UpdatePetPage'),
+  () => import('./pages/UpdatePetPage')
 );
 const PetProfilePage: React.LazyExoticComponent<() => JSX.Element> = React.lazy(
-  () => import('./pages/PetProfilePage'),
+  () => import('./pages/PetProfilePage')
 );
 const CreateEventPage: React.LazyExoticComponent<() => JSX.Element> =
   React.lazy(() => import('./pages/CreateEventPage'));
 const UpdateEventPage: React.LazyExoticComponent<() => JSX.Element> =
   React.lazy(() => import('./pages/UpdateEventPage'));
-// const SignInPage: React.LazyExoticComponent<() => JSX.Element> = React.lazy(
-// () => import('./pages/SignInPage'),
-// );
+const SignInPage: React.LazyExoticComponent<() => JSX.Element | null> =
+  React.lazy(() => import('./pages/SignInPage'));
 
 const routes: Route[] = [
   {
-    path: '/home',
+    path: '/',
     Component: HomePage,
     isProtected: true,
   },
@@ -60,39 +58,37 @@ const routes: Route[] = [
     Component: PetProfilePage,
     isProtected: true,
   },
-  // {
-  //   path: '/sign-in',
-  //   Component: SignInPage,
-  //   isProtected: false,
-  // },
+  {
+    path: '/sign-in',
+    Component: SignInPage,
+    isProtected: false,
+  },
 ];
 
 const RoutesLocal = () => {
   return (
-    <>
-      <Suspense fallback={<></>}>
-        <Routes>
-          {routes.map(({ path, isProtected, Component }: Route) => {
-            return (
-              <RouteElement
-                key={path}
-                path={path}
-                element={
-                  isProtected ? (
-                    <AuthGuard>
-                      <Component />
-                    </AuthGuard>
-                  ) : (
+    <Suspense>
+      <Routes>
+        {routes.map(({ path, isProtected, Component }: Route) => {
+          return (
+            <RouteElement
+              key={path}
+              path={path}
+              element={
+                isProtected ? (
+                  <AuthGuard>
                     <Component />
-                  )
-                }
-              />
-            );
-          })}
-          <RouteElement path="*" element={<Navigate to="/home" replace />} />
-        </Routes>
-      </Suspense>
-    </>
+                  </AuthGuard>
+                ) : (
+                  <Component />
+                )
+              }
+            />
+          );
+        })}
+        <RouteElement path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 };
 

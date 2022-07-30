@@ -2,43 +2,48 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { useUser } from 'reactfire';
-import { Children } from './../types';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSigninCheck } from 'reactfire';
+
 import HeaderContainer from './containers/HeaderContainer';
-import useSetLoadingStatus from './hooks/useSetLoadingStatus';
 import RoutesLocal from './RoutesLocal';
 import { getHeaderHeight } from './utils/factory.utils';
 
 const App = () => {
   const theme: any = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const check = useSigninCheck();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (check.data?.signedIn && pathname === '/sign-in') {
+      navigate('/');
+      return;
+    }
+
+    if (check.data?.signedIn) {
+      return;
+    }
+
+    if (pathname === '/sign-in') {
+      return;
+    }
+
+    navigate('/sign-in');
+  }, [check.data?.signedIn, navigate, pathname]);
 
   return (
-    <AppGuard>
-      <Router>
-        <HeaderContainer />
-        <Box pt={getHeaderHeight(theme, isXs) + 'px'}>
-          <Container maxWidth="lg">
-            <RoutesLocal />
-          </Container>
-        </Box>
-      </Router>
-    </AppGuard>
+    <>
+      <HeaderContainer />
+      <Box pt={getHeaderHeight(theme, isXs) + 'px'}>
+        <Container maxWidth="lg">
+          <RoutesLocal />
+        </Container>
+      </Box>
+    </>
   );
-};
-
-const AppGuard = ({ children }: Children) => {
-  const { status: userStatus } = useUser();
-  const isLoading: boolean = userStatus === 'loading';
-
-  useSetLoadingStatus({ isLoading });
-
-  if (isLoading) {
-    return <></>;
-  }
-
-  return children;
 };
 
 export default App;

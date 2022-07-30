@@ -31,12 +31,10 @@ const Main = () => {
               <ApolloProviderLocal>
                 <LoaderStoreProvider>
                   <ActivePetProfileTabProvider>
-                    <>
+                    <Router>
                       <GlobalLinearProgress />
-                      <Router>
-                        <App />
-                      </Router>
-                    </>
+                      <App />
+                    </Router>
                   </ActivePetProfileTabProvider>
                 </LoaderStoreProvider>
               </ApolloProviderLocal>
