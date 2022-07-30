@@ -26,5 +26,5 @@ module.exports = {
 EOF
 
 echo Starting trixie
-yarn trixie-start-prod
+yarn trixie:start:prod
 echo trixie deployed successfully
