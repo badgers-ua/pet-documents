@@ -18,8 +18,8 @@ const HomePage = () => {
 
   const { t } = useTranslation();
 
-  if (!pets.length && !todayEvents.length! && upcomingEvents.length) {
-    return <></>;
+  if (!pets.length && !todayEvents.length && upcomingEvents.length) {
+    return null;
   }
 
   return (

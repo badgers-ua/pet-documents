@@ -1,3 +1,4 @@
+import LinearProgress from '@mui/material/LinearProgress';
 import { FirebaseOptions } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
@@ -16,7 +17,10 @@ const firebaseConfig: FirebaseOptions = environment.firebaseConfig;
 const FirebaseProviderLocal = ({ children }: Children) => {
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense>
-      <SuspenseWithPerf traceId={'firebase-user-wait'} fallback={<></>}>
+      <SuspenseWithPerf
+        traceId={'firebase-user-wait'}
+        fallback={<LinearProgress />}
+      >
         <AuthProviderLocal>
           <StorageProviderLocal>{children}</StorageProviderLocal>
         </AuthProviderLocal>

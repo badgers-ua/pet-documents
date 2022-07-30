@@ -7,13 +7,9 @@ const HeaderContainer = () => {
   const { data: signInCheck } = useSigninCheck();
   const { data: user } = useUser();
 
-  return (
-    <>
-      {signInCheck?.signedIn && (
-        <Header onLogoutClick={handleLogout} user={user!} />
-      )}
-    </>
-  );
+  return signInCheck?.signedIn && user ? (
+    <Header onLogoutClick={handleLogout} user={user} />
+  ) : null;
 };
 
 export default HeaderContainer;

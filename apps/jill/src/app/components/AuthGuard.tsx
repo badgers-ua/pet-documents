@@ -1,17 +1,19 @@
-import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
-import { useAuth, useSigninCheck } from 'reactfire';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSigninCheck } from 'reactfire';
 
 const AuthGuard = ({ children }: { children: JSX.Element }) => {
   const { data, status } = useSigninCheck();
-  const auth = useAuth();
+  const navigate = useNavigate();
 
-  if (status === 'loading') {
-    return <></>;
-  }
+  useEffect(() => {
+    if (!data?.signedIn) {
+      navigate('sign-in');
+    }
+  }, [data, navigate]);
 
-  if (!data?.signedIn) {
-    signInWithRedirect(auth, new GoogleAuthProvider());
-    return <></>;
+  if (status === 'loading' || !data?.signedIn) {
+    return null;
   }
 
   return children as JSX.Element;

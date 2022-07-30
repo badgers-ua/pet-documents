@@ -1,5 +1,5 @@
-import { useAuth } from 'reactfire';
 import { useApolloClient } from '@apollo/client/react/hooks/useApolloClient';
+import { useAuth } from 'reactfire';
 
 type SignOutHandler = () => void;
 
@@ -8,9 +8,11 @@ const useSignOut = (): SignOutHandler => {
   const client = useApolloClient();
 
   const handleSignOut = async () => {
-    await client.resetStore();
-    localStorage.removeItem('apollo-cache-persist');
     await auth.signOut();
+    setTimeout(async () => {
+      await client.resetStore();
+      localStorage.removeItem('apollo-cache-persist');
+    });
   };
 
   return handleSignOut;

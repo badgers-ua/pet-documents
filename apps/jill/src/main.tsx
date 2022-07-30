@@ -8,6 +8,7 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './app/App';
 import GlobalLinearProgress from './app/components/GlobalLinearProgress';
 import useThemeLocal from './app/hooks/useThemeLocal';
@@ -30,10 +31,10 @@ const Main = () => {
               <ApolloProviderLocal>
                 <LoaderStoreProvider>
                   <ActivePetProfileTabProvider>
-                    <>
+                    <Router>
                       <GlobalLinearProgress />
                       <App />
-                    </>
+                    </Router>
                   </ActivePetProfileTabProvider>
                 </LoaderStoreProvider>
               </ApolloProviderLocal>

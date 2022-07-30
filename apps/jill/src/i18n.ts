@@ -101,6 +101,9 @@ const resources: Resource = {
       uploadPhoto: 'Upload photo',
       submit: 'Submit',
       other: 'Other',
+      welcome: 'Welcome',
+      copyright: 'Copyright',
+      signInWithGoogle: 'Sign in with Google',
     },
   },
   uk: {
@@ -200,6 +203,9 @@ const resources: Resource = {
       uploadPhoto: 'Завантажити фото',
       submit: 'Застосувати',
       other: 'Інше',
+      welcome: 'Ласкаво просимо',
+      copyright: 'Усі права захищено',
+      signInWithGoogle: 'Увійти з Google',
     },
   },
 };

@@ -36,7 +36,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
   }, []);
 
   if (!cacheLoaded) {
-    return <></>;
+    return null;
   }
 
   const authLink = setContext(async (_, { headers }) => {
@@ -61,7 +61,6 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
 
     if (networkError) {
       console.log(`[Network error]: ${networkError}`);
-      enqueueSnackbar(networkError.message);
     }
   });
 

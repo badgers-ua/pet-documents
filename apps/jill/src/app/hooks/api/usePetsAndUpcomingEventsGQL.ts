@@ -1,6 +1,7 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { IEventResDto, IPetResDto } from '@pdoc/types';
 import sortBy from 'lodash/sortBy';
+import { useEffect } from 'react';
 import { isLoading } from '../../../types';
 import { isToday } from '../../utils/date.utils';
 import { PETS_SCHEMA_AND_UPCOMING_EVENTS_GQL } from './schemas';
@@ -17,9 +18,13 @@ interface PetsAndUpcomingEventsGQLRes {
 }
 
 const usePetsAndUpcomingEventsGQL = (): PetsAndUpcomingEvents => {
-  const { data, loading } = useQuery<PetsAndUpcomingEventsGQLRes>(
+  const [fetch, { data, loading }] = useLazyQuery<PetsAndUpcomingEventsGQLRes>(
     PETS_SCHEMA_AND_UPCOMING_EVENTS_GQL
   );
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const {
     getUpcomingEvents: upcomingEvents,
