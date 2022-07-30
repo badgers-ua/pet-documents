@@ -1,6 +1,6 @@
 {
-  "name": "Nx PWA",
-  "short_name": "Nx PWA",
+  "name": "Pet Documents",
+  "short_name": "Pet Documents",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
