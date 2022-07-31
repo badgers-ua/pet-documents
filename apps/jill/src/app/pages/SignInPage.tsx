@@ -6,14 +6,16 @@ import Link from '@mui/material/Link';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'reactfire';
+import { environment } from '../../environments/environment';
 import GoogleButton from '../components/GoogleButton';
 
 import pawsImage from '../icons/paws.png';
 
 const BackgroundImage = styled(Box)(() => ({
-  position: 'absolute',
+  position: 'fixed',
   top: 0,
   right: 0,
   bottom: 0,
@@ -31,10 +33,10 @@ const SignInPaper = styled(Paper)(() => ({
   bottom: 0,
   left: 0,
   margin: 'auto',
-  position: 'absolute',
+  position: 'fixed',
   borderRadius: '16px',
   width: '310px',
-  height: '200px',
+  height: '250px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -50,6 +52,15 @@ const SignInPage = () => {
     signInWithRedirect(auth, new GoogleAuthProvider());
   };
 
+  useEffect(function ignoreSafeAreasAndBounceEffect() {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.height = '100vh';
+    return function respectSafeAreasAndBounceEffect() {
+      document.body.style.overflow = '';
+      document.documentElement.style.height = '';
+    };
+  }, []);
+
   return (
     <>
       <BackgroundImage />
@@ -63,6 +74,9 @@ const SignInPage = () => {
         <Stack mt={2} spacing={2}>
           <GoogleButton onClick={handleSignIn} />
           <Copyright />
+          <Typography variant="caption" textAlign="center">
+            {t('appVersion', { version: `${environment.appVersion}` })}
+          </Typography>
         </Stack>
       </SignInPaper>
     </>
