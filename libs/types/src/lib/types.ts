@@ -27,6 +27,7 @@ export enum EVENT {
   ESTRUS,
   MOLT,
   OTHER,
+  GROOMING,
 }
 
 export interface IStaticResDto {

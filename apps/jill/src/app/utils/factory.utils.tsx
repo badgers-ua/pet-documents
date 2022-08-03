@@ -1,6 +1,7 @@
 import { EVENT, GENDER, SPECIES } from '@pdoc/types';
 import { FirebaseStorage, getDownloadURL, ref } from 'firebase/storage';
 import i18next from 'i18next';
+import { orderBy } from 'lodash';
 import sortBy from 'lodash/sortBy';
 import { DropDownOption } from '../../types';
 import { getGenderLabel } from './formatter.utils';
@@ -64,18 +65,24 @@ export const getEventLabel = (event: EVENT) => {
     [EVENT.ESTRUS]: i18next.t('eventEstrus'),
     [EVENT.MOLT]: i18next.t('eventMolt'),
     [EVENT.OTHER]: i18next.t('other'),
+    [EVENT.GROOMING]: i18next.t('grooming'),
   };
   return dictionary[event];
 };
 
-export const getEventOptions = (): DropDownOption<EVENT>[] =>
-  getEnumIntegerValues<EVENT>(EVENT).map(
+export const getEventOptions = (): DropDownOption<EVENT>[] => {
+  const eventOptions: DropDownOption<EVENT>[] = getEnumIntegerValues<EVENT>(
+    EVENT
+  ).map(
     (value: EVENT) =>
       ({
         label: getEventLabel(value),
         value,
       } as DropDownOption<EVENT>)
   );
+
+  return orderBy(eventOptions, [({ label }) => label.toLowerCase()], ['asc']);
+};
 
 export const getHeaderHeight = (theme: any, isXs: boolean): number => {
   const [mobileHeaderHeight, , { minHeight: deskTopHeaderHeight }] =

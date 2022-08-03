@@ -104,6 +104,7 @@ const resources: Resource = {
       welcome: 'Welcome',
       copyright: 'Copyright',
       signInWithGoogle: 'Sign in with Google',
+      grooming: 'Grooming',
     },
   },
   uk: {
@@ -206,6 +207,7 @@ const resources: Resource = {
       welcome: 'Ласкаво просимо',
       copyright: 'Усі права захищено',
       signInWithGoogle: 'Увійти з Google',
+      grooming: 'Грумінг',
     },
   },
 };

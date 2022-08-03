@@ -31,8 +31,8 @@ export const CreateEvent = () => {
     const createEventReqDto: CreateEventReqDto = {
       petId: petId ?? '',
       type: +(event as any)?.value,
-      date: getDateWithMidnightUTCTime((date as any as DateTime)!.toISO()),
-      description: !!description ? description : null,
+      date: getDateWithMidnightUTCTime((date as any as DateTime)?.toISO()),
+      description: description ? description : null,
     };
 
     loadCreateEvent(createEventReqDto);
