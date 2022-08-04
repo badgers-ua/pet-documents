@@ -285,7 +285,6 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
               <FormControl
                 error={!!touched.dateOfBirth && !!errors.dateOfBirth}
               >
-                {/* // TODO: Translate date picker */}
                 <DatePicker
                   label={t('birthday')}
                   inputFormat={getUserDateFormat()}
