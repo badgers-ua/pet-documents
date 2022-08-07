@@ -2,9 +2,11 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "trixie": "apps/trixie",
-    "types": "libs/types",
     "jill": "apps/jill",
-    "jill-e2e": "apps/jill-e2e"
+    "jill-e2e": "apps/jill-e2e",
+    "pixie": "apps/pixie",
+    "pixie-e2e": "apps/pixie-e2e",
+    "trixie": "apps/trixie",
+    "types": "libs/types"
   }
 }
