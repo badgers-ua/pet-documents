@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import tw from 'twrnc';
 import CatIcon from '../icons/cat.svg';
@@ -8,15 +8,23 @@ import CatIcon from '../icons/cat.svg';
 const Tab = createMaterialTopTabNavigator();
 
 const PetProfilePage = () => {
+  const [flipKey, setFlipKey] = useState<number | undefined>(undefined);
   const theme = useTheme();
 
+  useEffect(() => {
+    setFlipKey(0);
+  }, []);
+
   return (
-    <View style={tw`flex-1 `}>
+    <View style={tw`flex-1`}>
       <View style={tw`flex items-center mt-2`}>
         <CatIcon />
       </View>
       <Tab.Navigator
+        key={flipKey}
+        initialRouteName="Info"
         screenOptions={{
+          swipeEnabled: true,
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.text,
           tabBarIndicatorStyle: {
@@ -45,9 +53,10 @@ const PetProfilePage = () => {
 export default PetProfilePage;
 
 const Info = () => {
-  const arr = new Array(100).fill(undefined);
+  const arr = new Array(200).fill(undefined);
+
   return (
-    <ScrollView style={tw`bg-neutral-200`}>
+    <ScrollView>
       {arr.map((_, i) => (
         <Text key={i}>Info</Text>
       ))}

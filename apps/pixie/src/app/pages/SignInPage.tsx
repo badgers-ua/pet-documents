@@ -2,7 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import tw from 'twrnc';
-import GoogleButton from '../components/GoogleButton';
+import AppleButton from '../components/buttons/AppleButton';
+import GoogleButton from '../components/buttons/GoogleButton';
 import SubTitle from '../components/typography/SubTitle';
 import Title from '../components/typography/Title';
 import i18n from '../i18n';
@@ -14,7 +15,7 @@ const SignInPage = () => {
   const handleSignIn = () => {
     reset({
       index: 0,
-      routes: [{ name: 'Home' } as any],
+      routes: [{ name: 'Tabs' } as any],
     });
   };
 
@@ -26,6 +27,7 @@ const SignInPage = () => {
           <LogoIcon width={150} height={150} />
         </View>
         <SubTitle style={tw`text-center mt-5`}>{i18n.t('welcome')}</SubTitle>
+        <AppleButton style={tw`mt-5`} onPress={handleSignIn} />
         <GoogleButton style={tw`mt-5`} onPress={handleSignIn} />
       </View>
     </SafeAreaView>

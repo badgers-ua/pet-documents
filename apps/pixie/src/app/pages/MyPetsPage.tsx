@@ -10,11 +10,12 @@ const MyPetsStack = createNativeStackNavigator();
 const MyPetsPage = () => {
   return (
     <MyPetsStack.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <MyPetsStack.Screen name="MyPets" component={Home} />
+      <MyPetsStack.Screen name="Home" component={Home} />
     </MyPetsStack.Navigator>
   );
 };
