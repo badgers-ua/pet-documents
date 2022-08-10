@@ -11,6 +11,7 @@
 | :-------------------- | :------------------------------------------: |
 | [jill](apps/jill)     | React Frontend (Hosted on: http://p-doc.com) |
 | [trixie](apps/trixie) |                 Nest.js API                  |
+| [pixie](apps/pixie)   |      React Native App (In Development)       |
 | [types](libs/types)   |                Shared typings                |
 
 ## Pre Requirements
@@ -54,6 +55,14 @@ export const environment = {
 };
 
 ```
+
+---
+
+### [pixie:](apps/pixie)
+
+No configuration needed. App is in early development stage.
+
+---
 
 ## Run Locally
 
