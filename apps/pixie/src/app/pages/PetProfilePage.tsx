@@ -1,9 +1,8 @@
+import styled from '@emotion/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import tw from 'twrnc';
-import CatIcon from '../icons/cat.svg';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -16,10 +15,7 @@ const PetProfilePage = () => {
   }, []);
 
   return (
-    <View style={tw`flex-1`}>
-      <View style={tw`flex items-center mt-2`}>
-        <CatIcon />
-      </View>
+    <Root>
       <Tab.Navigator
         key={flipKey}
         initialRouteName="Info"
@@ -46,7 +42,7 @@ const PetProfilePage = () => {
         <Tab.Screen name="Info" component={Info} />
         <Tab.Screen name="Events" component={Events} />
       </Tab.Navigator>
-    </View>
+    </Root>
   );
 };
 
@@ -71,3 +67,9 @@ const Events = () => {
     </View>
   );
 };
+
+const Root = styled(View)(() => {
+  return {
+    flex: 1,
+  };
+});

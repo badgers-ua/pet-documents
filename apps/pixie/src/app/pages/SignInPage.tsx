@@ -1,7 +1,7 @@
+import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
-import tw from 'twrnc';
 import AppleButton from '../components/buttons/AppleButton';
 import GoogleButton from '../components/buttons/GoogleButton';
 import SubTitle from '../components/typography/SubTitle';
@@ -20,18 +20,60 @@ const SignInPage = () => {
   };
 
   return (
-    <SafeAreaView style={tw`p-4 z-20 relative h-full`}>
-      <View style={tw`pl-10 pr-10`}>
-        <Title style={tw`text-center mt-5`}>{i18n.t('petDocuments')}</Title>
-        <View style={tw`flex items-center mt-6 mb-4`}>
+    <Root>
+      <Content>
+        <Title>{i18n.t('petDocuments')}</Title>
+        <LogoWrapper>
           <LogoIcon width={150} height={150} />
-        </View>
-        <SubTitle style={tw`text-center mt-5`}>{i18n.t('welcome')}</SubTitle>
-        <AppleButton style={tw`mt-5`} onPress={handleSignIn} />
-        <GoogleButton style={tw`mt-5`} onPress={handleSignIn} />
-      </View>
-    </SafeAreaView>
+        </LogoWrapper>
+        <StyledSubTitle>{i18n.t('welcome')}</StyledSubTitle>
+        <StyledAppleButton onPress={handleSignIn} />
+        <StyledGoogleButton onPress={handleSignIn} />
+      </Content>
+    </Root>
   );
 };
 
 export default SignInPage;
+
+const Root = styled(SafeAreaView)(() => {
+  return {
+    flex: 1,
+  };
+});
+
+const Content = styled(View)(() => {
+  return {
+    marginTop: 80,
+    flex: 1,
+    padding: 0,
+    alignItems: 'center',
+    paddingLeft: 33,
+    paddingRight: 33,
+  };
+});
+
+const LogoWrapper = styled(View)(() => {
+  return {
+    marginTop: 24,
+    marginBottom: 24,
+  };
+});
+
+const StyledSubTitle = styled(SubTitle)(() => {
+  return {
+    marginBottom: 16,
+  };
+});
+
+const StyledAppleButton = styled(AppleButton)(() => {
+  return {
+    marginBottom: 16,
+  };
+});
+
+const StyledGoogleButton = styled(GoogleButton)(() => {
+  return {
+    marginBottom: 16,
+  };
+});

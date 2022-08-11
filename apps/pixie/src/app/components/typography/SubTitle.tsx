@@ -1,19 +1,16 @@
+import styled from '@emotion/native';
 import React from 'react';
-import { StyleSheet, Text, TextProps } from 'react-native';
-import tw from 'twrnc';
-import { Style } from 'twrnc/dist/esm/types';
+import { TextProps } from 'react-native';
+import Typography from './Typography';
 
-const SubTitle = ({ children, style, ...other }: TextProps) => {
-  return (
-    <Text
-      style={{ ...tw`font-semibold text-xl`, ...(style as Style) }}
-      {...other}
-    >
-      {children}
-    </Text>
-  );
+const Subtitle = ({ children, ...other }: TextProps) => {
+  return <SubtitleText {...other}>{children}</SubtitleText>;
 };
 
-export default SubTitle;
+export default Subtitle;
 
-const styles = StyleSheet.create({});
+const SubtitleText = styled(Typography)({
+  fontWeight: '600',
+  fontFamily: 'OpenSans_600SemiBold',
+  fontSize: 19,
+});

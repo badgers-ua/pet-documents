@@ -1,8 +1,8 @@
+import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
-import tw from 'twrnc';
+import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
 import PetCard from '../components/PetCard';
 
 const MyPetsStack = createNativeStackNavigator();
@@ -25,32 +25,52 @@ export default MyPetsPage;
 const Home = () => {
   const { navigate } = useNavigation();
 
-  const arr = [0, 0, 0, 0];
-  const deviceWidth = Dimensions.get('window').width;
-
-  const cardWidth = deviceWidth / 2.2;
+  const arr = [0, 0, 0, 0, 0, 0, 0, 0];
 
   return (
-    <View style={tw`flex-1 mt-2`}>
-      <View style={tw`flex-row flex-wrap justify-center`}>
+    <Root>
+      <CardsList>
         {arr.map((_, i) => {
           return (
-            <TouchableOpacity
-              onPress={() => navigate('PetProfile' as any)}
-              style={{
-                ...tw`p-2`,
-                ...{
-                  width: cardWidth,
-                  height: cardWidth,
-                },
-              }}
-              key={i}
-            >
-              <PetCard style={tw`w-full h-full`} />
-            </TouchableOpacity>
+            <CardsButton onPress={() => navigate('PetProfile' as any)} key={i}>
+              <StyledPetCard />
+            </CardsButton>
           );
         })}
-      </View>
-    </View>
+      </CardsList>
+    </Root>
   );
 };
+
+const Root = styled(ScrollView)(() => {
+  return {
+    flex: 1,
+    marginTop: 65,
+  };
+});
+
+const CardsList = styled(View)(() => {
+  return {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  };
+});
+
+const CardsButton = styled(TouchableOpacity)(() => {
+  const deviceWidth = Dimensions.get('window').width;
+  const cardWidth = deviceWidth / 2.2;
+
+  return {
+    padding: 6,
+    width: cardWidth,
+    height: cardWidth,
+  };
+});
+
+const StyledPetCard = styled(PetCard)(() => {
+  return {
+    width: '100%',
+    height: '100%',
+  };
+});

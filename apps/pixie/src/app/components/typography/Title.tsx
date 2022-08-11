@@ -1,16 +1,16 @@
+import styled from '@emotion/native';
 import React from 'react';
-import { StyleSheet, Text, TextProps } from 'react-native';
-import tw from 'twrnc';
-import { Style } from 'twrnc/dist/esm/types';
+import { TextProps } from 'react-native';
+import Typography from './Typography';
 
-const Title = ({ children, style, ...other }: TextProps) => {
-  return (
-    <Text style={{ ...tw`font-bold text-xl`, ...(style as Style) }} {...other}>
-      {children}
-    </Text>
-  );
+const Title = ({ children, ...other }: TextProps) => {
+  return <TitleText {...other}>{children}</TitleText>;
 };
 
 export default Title;
 
-const styles = StyleSheet.create({});
+const TitleText = styled(Typography)({
+  fontWeight: '700',
+  fontFamily: 'OpenSans_700Bold',
+  fontSize: 19,
+});

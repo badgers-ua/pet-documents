@@ -1,25 +1,26 @@
+import styled from '@emotion/native';
 import React from 'react';
 import { Text, View, ViewProps } from 'react-native';
-import tw from 'twrnc';
-import { Style } from 'twrnc/dist/esm/types';
 import useThemeColor from '../hooks/useThemeColor';
+import { darkTheme } from '../theme';
 
-const PetCard = ({ style, ...other }: ViewProps) => {
-  const themeColor = useThemeColor();
-
+const PetCard = ({ ...other }: ViewProps) => {
   return (
-    <View
-      style={{
-        ...tw`h-36 w-36 rounded-xl shadow-lg ${
-          themeColor === 'light' ? 'bg-white' : 'bg-zinc-500'
-        }`,
-        ...(style as Style),
-      }}
-      {...other}
-    >
+    <StyledPetCard {...other}>
       <Text>PetCard</Text>
-    </View>
+    </StyledPetCard>
   );
 };
 
 export default PetCard;
+
+const StyledPetCard = styled(View)(() => {
+  const themeColor = useThemeColor();
+
+  return {
+    height: 36,
+    width: 36,
+    borderRadius: 12,
+    backgroundColor: themeColor === 'light' ? darkTheme.colors.text : '#3f3f46',
+  };
+});

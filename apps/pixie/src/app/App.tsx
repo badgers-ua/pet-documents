@@ -1,25 +1,32 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-  Theme,
-  useTheme,
-} from '@react-navigation/native';
+  OpenSans_400Regular,
+  OpenSans_600SemiBold,
+  OpenSans_700Bold,
+  useFonts,
+} from '@expo-google-fonts/open-sans';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import tw from 'twrnc';
-import LogoIcon from '../icons/logo.svg';
-import IconButton from './components/buttons/IconButton';
+import { View } from 'react-native';
 import useThemeColor from './hooks/useThemeColor';
 import PetProfilePage from './pages/PetProfilePage';
 import SignInPage from './pages/SignInPage';
 import TabsPage from './pages/TabsPage';
+import { darkTheme, lightTheme } from './theme';
 
 const Stack = createNativeStackNavigator();
 
 const NavigationStack = () => {
-  const theme = useTheme();
+  const [fontsLoaded] = useFonts({
+    OpenSans_400Regular,
+    OpenSans_600SemiBold,
+    OpenSans_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return <View></View>;
+  }
 
   return (
     <Stack.Navigator initialRouteName="SignIn">
@@ -37,37 +44,11 @@ const NavigationStack = () => {
         name="PetProfile"
         component={PetProfilePage}
         options={{
-          headerStyle: {
-            backgroundColor: theme.colors.background,
-          },
-          headerShadowVisible: false,
-          headerRight: () => (
-            <IconButton style={tw`mr-2`}>
-              <LogoIcon width={36} height={36} />
-            </IconButton>
-          ),
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
   );
-};
-
-const lightTheme: Theme = {
-  ...DefaultTheme,
-  dark: false,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: tw`text-amber-500`.color as string,
-  },
-};
-
-const darkTheme: Theme = {
-  ...DarkTheme,
-  dark: false,
-  colors: {
-    ...DarkTheme.colors,
-    primary: tw`text-amber-500`.color as string,
-  },
 };
 
 const App = () => {

@@ -1,8 +1,8 @@
+import styled from '@emotion/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
-import tw from 'twrnc';
-import { Style } from 'twrnc/dist/esm/types';
 import { Children } from '../../types';
 import SubTitle from '../typography/SubTitle';
 
@@ -16,35 +16,53 @@ const iconSize = 28;
 const Button = ({
   startIcon: IconComponent,
   children,
-  style,
   ...touchableOpacityProps
 }: ButtonLocalProps) => {
   return (
-    <TouchableOpacity
-      style={{
-        ...tw`bg-amber-500 p-4 rounded-full flex-row justify-between items-center`,
-        ...(style as Style),
-      }}
-      {...touchableOpacityProps}
-    >
+    <StyledButton {...touchableOpacityProps}>
       <View>
         {IconComponent ? (
           <IconComponent width={iconSize} height={iconSize} />
         ) : null}
       </View>
-      <View
-        style={{
-          ...tw`flex-1 justify-between items-center`,
-        }}
-      >
-        <SubTitle
-          style={tw`text-white ${IconComponent ? '-ml-' + iconSize / 4 : ''}`}
-        >
+      <ContentWrapper>
+        <StyledSubTitle isStartIconPresented={!!IconComponent}>
           {children}
-        </SubTitle>
-      </View>
-    </TouchableOpacity>
+        </StyledSubTitle>
+      </ContentWrapper>
+    </StyledButton>
   );
 };
 
 export default Button;
+
+const StyledButton = styled(TouchableOpacity)(() => {
+  const theme = useTheme();
+
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.colors.primary,
+    padding: 16,
+    borderRadius: 100,
+  };
+});
+
+const ContentWrapper = styled(View)(() => {
+  return {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+});
+
+const StyledSubTitle = styled(SubTitle)(
+  ({ isStartIconPresented }: { isStartIconPresented: boolean }) => {
+    return {
+      marginLeft: isStartIconPresented ? -iconSize : 0,
+    };
+  }
+);
