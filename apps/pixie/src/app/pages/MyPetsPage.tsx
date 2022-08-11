@@ -45,7 +45,6 @@ const Home = () => {
 const Root = styled(ScrollView)(() => {
   return {
     flex: 1,
-    marginTop: 65,
   };
 });
 

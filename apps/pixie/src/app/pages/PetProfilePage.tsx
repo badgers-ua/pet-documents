@@ -1,12 +1,26 @@
 import styled from '@emotion/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
+import Header from '../components/Header';
+import CatIcon from '../icons/cat.svg';
+import { darkTheme } from '../theme';
 
 const Tab = createMaterialTopTabNavigator();
 
+const image = {
+  uri: 'https://www.thesprucepets.com/thmb/d-Mk298Jc8NHEWePgK8vNfdDTdE=/941x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/black-cat-on-tree-stump-588278854-5804d25b3df78cbc2867566c.jpg',
+};
+
 const PetProfilePage = () => {
+  const { goBack } = useNavigation();
   const [flipKey, setFlipKey] = useState<number | undefined>(undefined);
   const theme = useTheme();
 
@@ -16,13 +30,23 @@ const PetProfilePage = () => {
 
   return (
     <Root>
+      <StatusBar barStyle={image ? 'light-content' : 'dark-content'} />
+      <StyledBackGroundImage source={image} />
+      <StyledHeader
+        title={'My Pets'}
+        onNavigateBack={goBack}
+        buttonColor={image ? darkTheme.colors.text : undefined}
+      />
+      <SubHeader>{!image ? <CatIcon /> : null}</SubHeader>
       <Tab.Navigator
         key={flipKey}
         initialRouteName="Info"
         screenOptions={{
           swipeEnabled: true,
           tabBarActiveTintColor: theme.colors.primary,
-          tabBarInactiveTintColor: theme.colors.text,
+          tabBarInactiveTintColor: image
+            ? darkTheme.colors.text
+            : theme.colors.text,
           tabBarIndicatorStyle: {
             borderWidth: 1.5,
             borderColor: theme.colors.primary,
@@ -31,7 +55,9 @@ const PetProfilePage = () => {
             fontWeight: '600',
           },
           tabBarStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: image
+              ? 'rgba(0,0,0,.55)'
+              : theme.colors.background,
             shadowOffset: {
               width: 0,
               height: 1.5,
@@ -71,5 +97,30 @@ const Events = () => {
 const Root = styled(View)(() => {
   return {
     flex: 1,
+  };
+});
+
+const StyledHeader = styled(Header)(() => {
+  return {
+    backgroundColor: image ? 'rgba(0,0,0,.55)' : 'transparent',
+  };
+});
+
+const StyledBackGroundImage = styled(ImageBackground)(() => {
+  return {
+    flex: 1,
+    height: 254,
+    position: 'absolute',
+    width: '100%',
+  };
+});
+
+const SubHeader = styled(View)(() => {
+  return {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 16,
+    backgroundColor: image ? 'rgba(0,0,0,.55)' : 'transparent',
+    height: 106,
   };
 });

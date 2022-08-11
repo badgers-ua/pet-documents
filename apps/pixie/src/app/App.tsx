@@ -8,7 +8,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import useThemeColor from './hooks/useThemeColor';
 import PetProfilePage from './pages/PetProfilePage';
 import SignInPage from './pages/SignInPage';
@@ -58,6 +58,9 @@ const App = () => {
     <NavigationContainer
       theme={colorTheme === 'light' ? lightTheme : darkTheme}
     >
+      <StatusBar
+        barStyle={colorTheme === 'light' ? 'dark-content' : 'light-content'}
+      />
       <NavigationStack />
     </NavigationContainer>
   );

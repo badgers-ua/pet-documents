@@ -4,43 +4,55 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../components/Header';
 import MyPetsPage from './MyPetsPage';
 
 const Tab = createBottomTabNavigator();
 
 const TabsPage = () => {
   return (
-    <StyledSafeAreaView edges={['top', 'right', 'left']}>
-      <Tab.Navigator
-        initialRouteName="MyPets"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Tab.Screen
-          name="MyPets"
-          component={MyPetsPage}
-          options={{
-            tabBarIcon: ({ color, size }) => {
-              return (
-                <MaterialCommunityIcons name="home" color={color} size={size} />
-              );
-            },
+    <>
+      <Header title={'My Pets (3)'} />
+      <StyledSafeAreaView edges={['right', 'left']}>
+        <Tab.Navigator
+          initialRouteName="MyPets"
+          screenOptions={{
+            headerShown: false,
           }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => {
-              return (
-                <MaterialCommunityIcons name="cog" color={color} size={size} />
-              );
-            },
-          }}
-        />
-      </Tab.Navigator>
-    </StyledSafeAreaView>
+        >
+          <Tab.Screen
+            name="MyPets"
+            component={MyPetsPage}
+            options={{
+              tabBarIcon: ({ color, size }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="home"
+                    color={color}
+                    size={size}
+                  />
+                );
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    color={color}
+                    size={size}
+                  />
+                );
+              },
+            }}
+          />
+        </Tab.Navigator>
+      </StyledSafeAreaView>
+    </>
   );
 };
 
