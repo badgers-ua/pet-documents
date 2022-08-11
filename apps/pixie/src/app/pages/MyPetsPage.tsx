@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
+import CreatePetCard from '../components/CreatePetCard';
 import PetCard from '../components/PetCard';
 
 const MyPetsStack = createNativeStackNavigator();
@@ -25,7 +26,7 @@ export default MyPetsPage;
 const Home = () => {
   const { navigate } = useNavigation();
 
-  const arr = [0, 0, 0, 0, 0, 0, 0, 0];
+  const arr = [0, 0, 0];
 
   return (
     <Root>
@@ -37,6 +38,9 @@ const Home = () => {
             </CardsButton>
           );
         })}
+        <CardsButton>
+          <StyledCreatePetCard />
+        </CardsButton>
       </CardsList>
     </Root>
   );
@@ -68,6 +72,13 @@ const CardsButton = styled(TouchableOpacity)(() => {
 });
 
 const StyledPetCard = styled(PetCard)(() => {
+  return {
+    width: '100%',
+    height: '100%',
+  };
+});
+
+const StyledCreatePetCard = styled(CreatePetCard)(() => {
   return {
     width: '100%',
     height: '100%',
