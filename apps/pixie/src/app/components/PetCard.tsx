@@ -1,9 +1,9 @@
 import styled from '@emotion/native';
+import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { View, ViewProps } from 'react-native';
 import useThemeColor from '../hooks/useThemeColor';
 import DogIcon from '../icons/dog.svg';
-import { darkTheme } from '../theme';
 import Label from './typography/Label';
 import Overline from './typography/Overline';
 
@@ -23,6 +23,7 @@ export default PetCard;
 
 const StyledPetCard = styled(View)(() => {
   const themeColor = useThemeColor();
+  const theme = useTheme();
 
   return {
     flex: 1,
@@ -31,7 +32,16 @@ const StyledPetCard = styled(View)(() => {
     height: 36,
     width: 36,
     borderRadius: 12,
-    backgroundColor: themeColor === 'light' ? darkTheme.colors.text : '#3f3f46',
+    backgroundColor:
+      themeColor === 'light' ? theme.colors.background : '#3f3f46',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 10,
   };
 });
 
