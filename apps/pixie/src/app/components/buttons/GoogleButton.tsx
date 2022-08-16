@@ -1,7 +1,7 @@
 import styled from '@emotion/native';
 import React from 'react';
 import useThemeColor from '../../hooks/useThemeColor';
-import { darkTheme } from '../../theme';
+import { lightTheme } from '../../theme';
 import GoogleIcon from '../icons/google.svg';
 import Subtitle from '../typography/SubTitle';
 import Button, { ButtonLocalProps } from './Button';
@@ -24,7 +24,8 @@ const StyledButton = styled(Button)(() => {
   const colorTheme = useThemeColor();
 
   return {
-    backgroundColor: colorTheme === 'light' ? darkTheme.colors.text : '#2270E6',
+    backgroundColor:
+      colorTheme === 'light' ? lightTheme.colors.background : '#2270E6',
     borderWidth: colorTheme === 'light' ? 1 : 0,
   };
 });

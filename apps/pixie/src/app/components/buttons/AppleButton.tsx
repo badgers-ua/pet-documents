@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import React from 'react';
 import { Text } from 'react-native';
 import useThemeColor from '../../hooks/useThemeColor';
-import { darkTheme, lightTheme } from '../../theme';
+import { lightTheme } from '../../theme';
 import AppleIcon from '../icons/apple.svg';
 import Button, { ButtonLocalProps } from './Button';
 
@@ -22,7 +22,7 @@ const StyledButton = styled(Button)(() => {
   const colorTheme = useThemeColor();
 
   return {
-    backgroundColor: darkTheme.colors.text,
+    backgroundColor: lightTheme.colors.background,
     borderWidth: colorTheme === 'light' ? 1 : 0,
   };
 });
