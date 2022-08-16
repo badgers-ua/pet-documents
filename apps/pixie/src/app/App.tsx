@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { StatusBar, View } from 'react-native';
 import useThemeColor from './hooks/useThemeColor';
+import AddNewPetPage from './pages/AddNewPetPage';
 import PetProfilePage from './pages/PetProfilePage';
 import SignInPage from './pages/SignInPage';
 import TabsPage from './pages/TabsPage';
@@ -43,6 +44,13 @@ const NavigationStack = () => {
       <Stack.Screen
         name="PetProfile"
         component={PetProfilePage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddNewPet"
+        component={AddNewPetPage}
         options={{
           headerShown: false,
         }}

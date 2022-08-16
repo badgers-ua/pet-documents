@@ -40,7 +40,7 @@ const Home = () => {
             </CardsButton>
           );
         })}
-        <CardsButton>
+        <CardsButton onPress={() => navigate('AddNewPet' as any)}>
           <StyledCreatePetCard />
         </CardsButton>
       </CardsList>
