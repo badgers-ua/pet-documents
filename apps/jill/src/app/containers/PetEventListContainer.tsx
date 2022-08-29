@@ -238,14 +238,21 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     <Stack
       mb={2}
       position="sticky"
-      top={`${getHeaderHeight(theme, isXs)}px`}
-      paddingTop={theme.spacing(isPlatformIOS() ? 5.5 : 2)}
+      top={`${isPlatformIOS() ? 100 : getHeaderHeight(theme, isXs)}px`}
+      paddingTop={theme.spacing(isPlatformIOS() ? 0 : 2)}
       sx={{ backgroundColor: theme.palette.background.default }}
       zIndex={1}
     >
       <Box mb={2} display="flex" alignItems="flex-end">
         <Stack spacing={2} direction="row" flex={1}>
-          <FormControl size="small" sx={{ display: 'flex', flex: 1, width: 0 }}>
+          <FormControl
+            size="small"
+            sx={{
+              display: 'flex',
+              flex: 1,
+              width: 0,
+            }}
+          >
             <InputLabel id="event-type-label">{t('event')}</InputLabel>
             <Select
               label={t('event').toString()}
@@ -264,7 +271,14 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
             </Select>
           </FormControl>
 
-          <FormControl size="small" sx={{ display: 'flex', flex: 1, width: 0 }}>
+          <FormControl
+            size="small"
+            sx={{
+              display: 'flex',
+              flex: 1,
+              width: 0,
+            }}
+          >
             <InputLabel id="sort-label">{t('sorting')}</InputLabel>
             <Select
               label={t('sorting').toString()}
