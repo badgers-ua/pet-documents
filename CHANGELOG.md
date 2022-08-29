@@ -1,5 +1,13 @@
 # Versions
 
+## v1.7.0
+
+_Aug 29, 2022_
+
+- Added "Settings" option under user menu in header
+- Added ability to configure default pet profile active tab from app settings
+- Added ability to configure app home page from app settings
+
 ## v1.6.1
 
 _Aug 29, 2022_
