@@ -107,6 +107,7 @@ const resources: Resource = {
       grooming: 'Grooming',
       settings: 'Settings',
       activeProfileTab: 'Active tab at pet profile (only mobile devices)',
+      homePage: 'Home page',
     },
   },
   uk: {
@@ -213,6 +214,7 @@ const resources: Resource = {
       settings: 'Налаштування',
       activeProfileTab:
         'Активна вкладка профілю улюбленця (лише мобільні пристрої)',
+      homePage: 'Стартова сторінка',
     },
   },
 };
