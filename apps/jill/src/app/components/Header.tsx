@@ -174,7 +174,15 @@ const UserMenu = (props: LogOutUserMenuProps) => {
                 pt={1}
                 color="grey.500"
               >
-                {t('appVersion', { version: `${environment.appVersion}` })}
+                {t('appVersion') + ': '}
+                <Link
+                  href={`https://github.com/badgers-ua/pet-documents/blob/main/CHANGELOG.md#v${environment.appVersion
+                    .split('.')
+                    .join('')}`}
+                  target="_blank"
+                >
+                  {environment.appVersion}
+                </Link>
               </Typography>
             </Box>
           </Box>

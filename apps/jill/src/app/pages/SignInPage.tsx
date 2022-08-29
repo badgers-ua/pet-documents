@@ -75,7 +75,15 @@ const SignInPage = () => {
           <GoogleButton onClick={handleSignIn} />
           <Copyright />
           <Typography variant="caption" textAlign="center">
-            {t('appVersion', { version: `${environment.appVersion}` })}
+            {t('appVersion') + ': '}
+            <Link
+              href={`https://github.com/badgers-ua/pet-documents/blob/main/CHANGELOG.md#v${environment.appVersion
+                .split('.')
+                .join('')}`}
+              target="_blank"
+            >
+              {environment.appVersion}
+            </Link>
           </Typography>
         </Stack>
       </SignInPaper>
