@@ -1,5 +1,11 @@
 # Versions
 
+## v1.6.1
+
+_Aug 29, 2022_
+
+- Fixed scrolling issues and overflows on IOS in pet events toolbar
+
 ## v1.6.0
 
 _Aug 29, 2022_
