@@ -92,7 +92,9 @@ const UserMenu = (props: LogOutUserMenuProps) => {
 
   const handleSettingsClick = () => {
     handleClose();
-    navigate('/settings');
+    setTimeout(() => {
+      navigate('/settings');
+    });
   };
 
   const handleMenu = (event: any) => {
