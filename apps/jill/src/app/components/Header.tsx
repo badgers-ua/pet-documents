@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Check from '@mui/icons-material/Check';
 import { default as LogoutIcon } from '@mui/icons-material/Logout';
+import { default as SettingsIcon } from '@mui/icons-material/Settings';
 import AppBar, { AppBarProps } from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -19,7 +20,7 @@ import Typography from '@mui/material/Typography';
 import { User } from 'firebase/auth';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { environment } from '../../environments/environment';
 import { ReactComponent as LogoSVG } from '../icons/logo.svg';
 
@@ -87,6 +88,13 @@ const EventsPaper = styled(Paper)(() => ({
 const UserMenu = (props: LogOutUserMenuProps) => {
   const { onLogoutClick = () => {}, userAvatar, userName, userEmail } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+
+  const handleSettingsClick = () => {
+    handleClose();
+    navigate('/settings');
+  };
+
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -94,6 +102,7 @@ const UserMenu = (props: LogOutUserMenuProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
 
@@ -154,6 +163,19 @@ const UserMenu = (props: LogOutUserMenuProps) => {
             </CardContent>
             <Divider variant="middle" />
             <Box pl={2} pr={2} pb={2}>
+              <IconButton
+                onClick={handleSettingsClick}
+                color="inherit"
+                sx={{
+                  width: '100%',
+                  borderRadius: '0',
+                  justifyContent: 'flex-start',
+                }}
+              >
+                <SettingsIcon />
+                <Typography pl={2}>{t('settings')}</Typography>
+              </IconButton>
+              <Divider />
               <IconButton
                 onClick={onLogoutClick}
                 color="inherit"

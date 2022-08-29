@@ -27,6 +27,8 @@ const UpdateEventPage: React.LazyExoticComponent<() => JSX.Element> =
   React.lazy(() => import('./pages/UpdateEventPage'));
 const SignInPage: React.LazyExoticComponent<() => JSX.Element | null> =
   React.lazy(() => import('./pages/SignInPage'));
+const SettingsPage: React.LazyExoticComponent<() => JSX.Element | null> =
+  React.lazy(() => import('./pages/SettingsPage'));
 
 const routes: Route[] = [
   {
@@ -63,6 +65,11 @@ const routes: Route[] = [
     path: '/sign-in',
     Component: SignInPage,
     isProtected: false,
+  },
+  {
+    path: '/settings',
+    Component: SettingsPage,
+    isProtected: true,
   },
 ];
 

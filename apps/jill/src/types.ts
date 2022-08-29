@@ -89,3 +89,13 @@ export interface AddEventToCalendarParams {
 export type isLoading = {
   isLoading: boolean;
 };
+
+export enum LOCAL_STORAGE_KEY {
+  ACTIVE_PET_PROFILE_TAB = 'active-pet-profile-tab',
+  HOME_PAGE_URL = 'home-page-url',
+}
+
+export enum PET_PROFILE_TAB {
+  PROFILE,
+  EVENTS,
+}

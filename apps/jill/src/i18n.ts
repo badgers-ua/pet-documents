@@ -105,6 +105,8 @@ const resources: Resource = {
       copyright: 'Copyright',
       signInWithGoogle: 'Sign in with Google',
       grooming: 'Grooming',
+      settings: 'Settings',
+      activeProfileTab: 'Active tab at pet profile (only mobile devices)',
     },
   },
   uk: {
@@ -208,6 +210,9 @@ const resources: Resource = {
       copyright: 'Усі права захищено',
       signInWithGoogle: 'Увійти з Google',
       grooming: 'Грумінг',
+      settings: 'Налаштування',
+      activeProfileTab:
+        'Активна вкладка профілю улюбленця (лише мобільні пристрої)',
     },
   },
 };
