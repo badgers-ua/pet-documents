@@ -245,7 +245,14 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     >
       <Box mb={2} display="flex" alignItems="flex-end">
         <Stack spacing={2} direction="row" flex={1}>
-          <FormControl size="small" sx={{ display: 'flex', flex: 1, width: 0 }}>
+          <FormControl
+            size="small"
+            sx={{
+              display: 'flex',
+              flex: 1,
+              width: 0,
+            }}
+          >
             <InputLabel id="event-type-label">{t('event')}</InputLabel>
             <Select
               label={t('event').toString()}
@@ -264,7 +271,14 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
             </Select>
           </FormControl>
 
-          <FormControl size="small" sx={{ display: 'flex', flex: 1, width: 0 }}>
+          <FormControl
+            size="small"
+            sx={{
+              display: 'flex',
+              flex: 1,
+              width: 0,
+            }}
+          >
             <InputLabel id="sort-label">{t('sorting')}</InputLabel>
             <Select
               label={t('sorting').toString()}
