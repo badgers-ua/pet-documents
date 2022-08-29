@@ -239,7 +239,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
       mb={2}
       position="sticky"
       top={`${isPlatformIOS() ? 100 : getHeaderHeight(theme, isXs)}px`}
-      paddingTop={theme.spacing(isPlatformIOS() ? 0 : 2)}
+      paddingTop={theme.spacing(2)}
       sx={{ backgroundColor: theme.palette.background.default }}
       zIndex={1}
     >
