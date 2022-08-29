@@ -22,6 +22,7 @@ import {
   DeleteEventReqDto,
   DeleteEventResDto,
   DeletePetReqDto,
+  PET_PROFILE_TAB,
   RemoveOwnerReqDto,
   RemoveOwnerResDto,
 } from '../../types';
@@ -267,7 +268,10 @@ const PetProfilePage = () => {
     });
   };
 
-  const handleTabChange = (event: SyntheticEvent, newValue: number) => {
+  const handleTabChange = (
+    event: SyntheticEvent,
+    newValue: PET_PROFILE_TAB
+  ) => {
     setActiveTab(newValue);
   };
 
@@ -332,8 +336,10 @@ const PetProfilePage = () => {
           </Tabs>
         </Grid>
         <Grid item xs={12}>
-          {activeTab === 0 && renderPetInfoCardContainer()}
-          {activeTab === 1 && renderPetEventListContainer()}
+          {activeTab === PET_PROFILE_TAB.PROFILE &&
+            renderPetInfoCardContainer()}
+          {activeTab === PET_PROFILE_TAB.EVENTS &&
+            renderPetEventListContainer()}
         </Grid>
       </Grid>
     );

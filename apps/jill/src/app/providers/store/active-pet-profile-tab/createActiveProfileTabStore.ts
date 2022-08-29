@@ -1,17 +1,21 @@
-import { environment } from 'apps/jill/src/environments/environment';
 import create, { SetState } from 'zustand';
 import { devtools } from 'zustand/middleware';
+import { environment } from '../../../../environments/environment';
+import { LOCAL_STORAGE_KEY, PET_PROFILE_TAB } from '../../../../types';
 
 export type ActivePetProfileTabState = {
-  activeTab: number;
-  setActiveTab: (activeTab: number) => void;
+  activeTab: PET_PROFILE_TAB;
+  setActiveTab: (activeTab: PET_PROFILE_TAB) => void;
 };
 const state = (
   set: SetState<ActivePetProfileTabState>
 ): ActivePetProfileTabState => {
   return {
-    activeTab: 0,
-    setActiveTab: (activeTab: number) => set({ activeTab }),
+    activeTab: +(
+      localStorage.getItem(LOCAL_STORAGE_KEY.ACTIVE_PET_PROFILE_TAB) ??
+      PET_PROFILE_TAB.PROFILE
+    ),
+    setActiveTab: (activeTab: PET_PROFILE_TAB) => set({ activeTab }),
   };
 };
 
