@@ -41,6 +41,7 @@ import {
 import useGetPetProfileGQL, {
   PetProfileGQLRes,
 } from '../hooks/api/useGetPetProfileGQL';
+import useKeyPress from '../hooks/useKeyPress';
 import { useActiveProfileTabStore } from '../providers/store/active-pet-profile-tab/ActivePetProfileTabProvider';
 import { useLoaderStore } from '../providers/store/loader/LoaderStoreProvider';
 import { getEventLabel, getHeaderHeight } from '../utils/factory.utils';
@@ -158,6 +159,12 @@ const PetProfilePage = () => {
     event: IEventResDto | null;
     isOpen: boolean;
   }>({ event: null, isOpen: false });
+
+  const updatePetLink = `/update-pet/${petId}`;
+  const createEventLink = `/create-event/${petId}`;
+
+  useKeyPress({ key: 'e', route: updatePetLink });
+  useKeyPress({ key: 'n', route: createEventLink });
 
   const emailValidationSchema = Yup.object({
     email: Yup.string()
@@ -291,7 +298,7 @@ const PetProfilePage = () => {
         }}
         pet={pet}
         petActions={{
-          updatePetLink: `/update-pet/${petId}`,
+          updatePetLink,
           onAddOwnerClick: togglePetAddOwnerFormDialog,
           onRemoveOwnerClick: togglePetRemoveOwnerFormDialog,
           onDeletePetClick: togglePetDeleteConfirmationDialog,
@@ -397,7 +404,7 @@ const PetProfilePage = () => {
             right: (theme) => theme.spacing(2),
           }}
           component={RouterLink}
-          to={`/create-event/${petId}`}
+          to={createEventLink}
           color="inherit"
           underline="none"
         >

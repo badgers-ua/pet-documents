@@ -8,6 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import EventListContainer from '../containers/EventListContainer';
 import PetListContainer from '../containers/PetListContainer';
 import usePetsAndUpcomingEventsGQL from '../hooks/api/usePetsAndUpcomingEventsGQL';
+import useKeyPress from '../hooks/useKeyPress';
 import useSetLoadingStatus from '../hooks/useSetLoadingStatus';
 
 const HomePage = () => {
@@ -17,6 +18,7 @@ const HomePage = () => {
   useSetLoadingStatus({ isLoading });
 
   const { t } = useTranslation();
+  useKeyPress({ key: 'n', route: '/create-pet' });
 
   if (!pets.length && !todayEvents.length && upcomingEvents.length) {
     return null;
