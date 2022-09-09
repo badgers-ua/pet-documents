@@ -41,7 +41,7 @@ import {
   getEventOptions,
   getHeaderHeight,
 } from '../utils/factory.utils';
-import { isPlatformIOS } from '../utils/platfom.utils';
+import { isPlatformIOS, isPWA } from '../utils/platfom.utils';
 
 type PetEventsGridProps = {
   petId: string;
@@ -233,7 +233,9 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     <Stack
       mb={2}
       position="sticky"
-      top={`${isPlatformIOS() ? 100 : getHeaderHeight(theme, isXs)}px`}
+      top={`${
+        isPlatformIOS() && isPWA() ? 100 : getHeaderHeight(theme, isXs)
+      }px`}
       paddingTop={theme.spacing(2)}
       sx={{ backgroundColor: theme.palette.background.default }}
       zIndex={1}

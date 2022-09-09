@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.1
+
+_Sep 09, 2022_
+
+- Fixed events list positioning at ios non pwa mode
+
 ## v1.7.0
 
 _Aug 29, 2022_
