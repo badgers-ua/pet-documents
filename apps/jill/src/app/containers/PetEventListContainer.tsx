@@ -63,9 +63,8 @@ type ToolbarProps = {
 type EventFilter = EVENT | 'all';
 
 enum SORTING {
-  DEFAULT,
-  ASC,
   DESC,
+  ASC,
 }
 
 const eventTypes = (): DropDownOption<EVENT | 'all'>[] => [
@@ -75,7 +74,6 @@ const eventTypes = (): DropDownOption<EVENT | 'all'>[] => [
 
 const getSortingLabel = (sorting: SORTING): string => {
   const dictionary = {
-    [SORTING.DEFAULT]: i18next.t('default'),
     [SORTING.ASC]: i18next.t('pastFirst'),
     [SORTING.DESC]: i18next.t('futureFirst'),
   };
@@ -94,7 +92,7 @@ const sortingOptions = (): DropDownOption<SORTING>[] =>
 const defaultFilters: Filters = {
   isFutureOnly: false,
   selectedEvent: 'all',
-  selectedSorting: SORTING.DEFAULT,
+  selectedSorting: SORTING.DESC,
 };
 
 const PetEventListContainer = (props: PetEventsGridProps) => {
@@ -114,14 +112,11 @@ const PetEventListContainer = (props: PetEventsGridProps) => {
         })
       : events;
 
-  const sortedAndFilteredEvents: IEventResDto[] =
-    filters.selectedSorting === SORTING.DEFAULT
-      ? filteredEvents
-      : orderBy(
-          filteredEvents,
-          ({ date }) => DateTime.fromISO(date).toJSDate(),
-          filters.selectedSorting === SORTING.ASC ? 'asc' : 'desc'
-        );
+  const sortedAndFilteredEvents: IEventResDto[] = orderBy(
+    filteredEvents,
+    ({ date }) => DateTime.fromISO(date).toJSDate(),
+    filters.selectedSorting === SORTING.ASC ? 'asc' : 'desc'
+  );
 
   if (!events.length) {
     return (
