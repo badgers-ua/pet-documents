@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.2
+
+_Sep 09, 2022_
+
+- Removed default sorting options in events list
+
 ## v1.7.1
 
 _Sep 09, 2022_
