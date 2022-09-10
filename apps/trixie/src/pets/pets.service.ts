@@ -55,15 +55,16 @@ export class PetsService {
     private readonly catBreedModel: Model<CatBreedDocument>,
     @InjectModel(DogBreed.name)
     private readonly dogBreedModel: Model<DogBreedDocument>,
-    private readonly usersService: UsersService,
+    private readonly usersService: UsersService
   ) {}
 
   public async patchPet(
     petId: string,
     avatar,
     ownerId: string,
-    petDto: PatchPetReqDto,
+    petDto: PatchPetReqDto
   ): Promise<PatchedPetResDto> {
+    console.log(petDto);
     const existingPet = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
       .exec();
@@ -98,7 +99,7 @@ export class PetsService {
         },
         {
           new: true,
-        },
+        }
       )
       .exec();
 
@@ -108,7 +109,7 @@ export class PetsService {
   public async addOwner(
     petId: string,
     currentOwnerId: string,
-    { ownerEmail }: AddOwnerReqDto,
+    { ownerEmail }: AddOwnerReqDto
   ): Promise<AddOwnerResDto> {
     const pet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
@@ -132,13 +133,13 @@ export class PetsService {
 
     if (newOwnerCurrentPets?.length >= 2) {
       throw new NotAcceptableException(
-        PET_LIMIT_REACHED_BY(requestedUser?.email),
+        PET_LIMIT_REACHED_BY(requestedUser?.email)
       );
     }
 
     if (pet.owners.toString().includes(requestedUser.uid)) {
       throw new BadRequestException(
-        petHasOwnerMessageFormatter(pet.name, ownerEmail),
+        petHasOwnerMessageFormatter(pet.name, ownerEmail)
       );
     }
 
@@ -148,7 +149,7 @@ export class PetsService {
         { owners: [...pet.owners, requestedUser.uid] },
         {
           new: true,
-        },
+        }
       )
       .exec();
 
@@ -158,7 +159,7 @@ export class PetsService {
   public async removeOwner(
     petId: string,
     currentOwnerId: string,
-    { ownerId }: RemoveOwnerReqDto,
+    { ownerId }: RemoveOwnerReqDto
   ): Promise<RemoveOwnerResDto> {
     const pet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
@@ -169,7 +170,7 @@ export class PetsService {
     }
 
     const requestedUser: auth.UserRecord = await this.usersService.getUserById(
-      ownerId,
+      ownerId
     );
 
     if (!requestedUser) {
@@ -195,7 +196,7 @@ export class PetsService {
         },
         {
           new: true,
-        },
+        }
       )
       .exec();
 
@@ -204,7 +205,7 @@ export class PetsService {
 
   public async getPetByIdAndOwner(
     petId: string,
-    ownerId: string,
+    ownerId: string
   ): Promise<PetResDto> {
     const [petDocument]: [PetWithBreedDocument] = (await this.petModel
       .aggregate(this.petAggregation(ownerId, petId))
@@ -215,7 +216,7 @@ export class PetsService {
     }
 
     const { users }: auth.GetUsersResult = await this.usersService.getUsers(
-      petDocument.owners.map((id) => ({ uid: id })),
+      petDocument.owners.map((id) => ({ uid: id }))
     );
 
     if (!users?.length) {
@@ -232,7 +233,7 @@ export class PetsService {
   public async getPetsByOwner(
     ownerId: string,
     isBreedDetailsRequested: boolean,
-    isOwnerDetailsRequested: boolean,
+    isOwnerDetailsRequested: boolean
   ): Promise<PetResDto[]> {
     const getPetResDtosWithBreedandOwners = async (): Promise<PetResDto[]> => {
       const petDocuments: PetWithBreedDocument[] = await this.petModel
@@ -247,7 +248,7 @@ export class PetsService {
       }
 
       const petResDtos: PetResDto[] = await this.petResDtosFromPetDocuments(
-        petDocuments,
+        petDocuments
       );
       return petResDtos;
     };
@@ -308,7 +309,7 @@ export class PetsService {
   public async createPet(
     petDto: PetReqDto,
     avatar,
-    ownerId: string,
+    ownerId: string
   ): Promise<CreatedPetResDto> {
     // TODO: [CLEANUP] Subscription feature
     const petDocuments: PetDocument[] = await this.petModel
@@ -336,7 +337,7 @@ export class PetsService {
 
   public async deletePet(
     petId: string,
-    ownerId: string,
+    ownerId: string
   ): Promise<DeletePetResDto> | never {
     await from(
       this.petModel
@@ -346,7 +347,7 @@ export class PetsService {
             { owners: ownerId },
           ],
         })
-        .exec(),
+        .exec()
     )
       .pipe(
         switchMap((petDocument: PetDocument) => {
@@ -357,7 +358,7 @@ export class PetsService {
                 .deleteMany({
                   petId: petId,
                 })
-                .exec(),
+                .exec()
             ),
             !!petDocument.avatar
               ? from(this._bucket.file(petDocument.avatar).delete())
@@ -367,7 +368,7 @@ export class PetsService {
         map(() => undefined),
         catchError(() => {
           throw new BadRequestException(PET_CRUD_ERROR);
-        }),
+        })
       )
       .toPromise();
 
@@ -376,7 +377,7 @@ export class PetsService {
 
   private async uploadAvatarToBucket(
     { createReadStream, mimetype }: any,
-    id = uuid(),
+    id = uuid()
   ): Promise<string> {
     const stream = createReadStream();
 
@@ -384,7 +385,7 @@ export class PetsService {
 
     const filePath: string = await new Promise((resolve) => {
       const createdStream = stream.pipe(
-        createWriteStream(join(__dirname, '/' + fileName)),
+        createWriteStream(join(__dirname, '/' + fileName))
       );
       setTimeout(() => {
         resolve(createdStream.path);
@@ -402,7 +403,7 @@ export class PetsService {
   }
 
   private async petResDtosFromPetDocuments(
-    petDocuments: PetWithBreedDocument[],
+    petDocuments: PetWithBreedDocument[]
   ): Promise<PetResDto[]> {
     const { users }: auth.ListUsersResult =
       await this.usersService.getAllUsers();

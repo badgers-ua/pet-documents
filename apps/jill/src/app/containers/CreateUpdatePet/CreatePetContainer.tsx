@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +53,9 @@ export const CreatePetContainer = () => {
       dateOfBirth: !!dateOfBirth
         ? getDateWithMidnightUTCTime((dateOfBirth as any as DateTime)!.toISO())
         : null,
-      weight: Number.isInteger(Number.parseFloat(weight)) ? +weight : null,
+      weight: isNumber(Number.parseFloat(weight))
+        ? Number.parseFloat(weight)
+        : null,
       colour: !!color ? color : null,
       notes: !!description ? description : null,
     };

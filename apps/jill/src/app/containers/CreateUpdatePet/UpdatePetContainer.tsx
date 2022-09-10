@@ -1,4 +1,5 @@
 import { GENDER, IPetResDto, SPECIES } from '@pdoc/types';
+import { isNumber } from 'lodash';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -40,16 +41,18 @@ const UpdatePetContainer = () => {
       _id: petId ?? '',
       name,
       species: +(species as any)?.value,
-      breed: !!(breed as any)?.value ? (breed as any)?.value : null,
+      breed: (breed as any)?.value ? (breed as any)?.value : null,
       gender: Number.isInteger(Number.parseFloat((gender as any)?.value))
         ? +(gender as any)?.value
         : null,
-      dateOfBirth: !!dateOfBirth
+      dateOfBirth: dateOfBirth
         ? getDateWithMidnightUTCTime((dateOfBirth as any as DateTime)!.toISO())
         : null,
-      weight: Number.isInteger(Number.parseFloat(weight)) ? +weight : null,
-      colour: !!color ? color : null,
-      notes: !!description ? description : null,
+      weight: isNumber(Number.parseFloat(weight))
+        ? Number.parseFloat(weight)
+        : null,
+      colour: color ? color : null,
+      notes: description ? description : null,
       isAvatarChanged: avatar instanceof File,
     };
 
@@ -92,7 +95,7 @@ const UpdatePetContainer = () => {
         } as DropDownOption<GENDER>)
       : null,
     dateOfBirth: !!dateOfBirth ? DateTime.fromISO(dateOfBirth) : null,
-    weight: Number.isInteger(weight) ? weight!.toString() : '',
+    weight: isNumber(weight) ? weight!.toString() : '',
     color: colour ?? '',
     description: notes ?? '',
     avatar: null,
