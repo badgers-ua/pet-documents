@@ -6,12 +6,12 @@ import {
   IsOptional,
   MaxLength,
   Max,
-  IsMongoId,
+  IsMongoId
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 import {
   dateDtoTransformFormatter,
-  numberedEnumValueLength,
+  numberedEnumValueLength
 } from '../../utils/formatter.utils';
 import { Field, InputType, Int } from '@nestjs/graphql';
 import { GetEventsReqDto } from './get-events-req.dto';

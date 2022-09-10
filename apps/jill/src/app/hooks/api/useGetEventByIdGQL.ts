@@ -11,15 +11,15 @@ const useGetEventByIdGQL = ({ petId, eventId }: UseGetEventByIdGQLProps) => {
   const {
     data: event,
     loading: isLoadingEvent,
-    error: loadingEventError,
+    error: loadingEventError
   } = useQuery(EVENT_SCHEMA, {
-    variables: { getEventReqDto: { _id: eventId, petId } as GetEventReqDto },
+    variables: { getEventReqDto: { _id: eventId, petId } as GetEventReqDto }
   });
 
   return {
     event,
     isLoadingEvent,
-    loadingEventError,
+    loadingEventError
   };
 };
 

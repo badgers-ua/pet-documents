@@ -11,7 +11,7 @@ export class UsersService {
   }
 
   public getUsers(
-    identifiers: auth.UserIdentifier[],
+    identifiers: auth.UserIdentifier[]
   ): Promise<auth.GetUsersResult> {
     return this.auth.getUsers(identifiers);
   }

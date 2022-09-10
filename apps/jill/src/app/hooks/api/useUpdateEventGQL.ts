@@ -13,7 +13,7 @@ const useUpdateEventGQL = ({ petId, onCompleted }: UseUpdateEventGQLProps) => {
     UPDATE_EVENT_SCHEMA,
     {
       refetchQueries: [{ query: EVENTS_SCHEMA, variables: { petId } }],
-      onCompleted,
+      onCompleted
     }
   );
 

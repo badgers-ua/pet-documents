@@ -32,14 +32,14 @@ export class StaticResolver {
 
   @Query(() => [StaticResDto], { name: 'getBreedsBySpecies' })
   public getBreedsBySpecies(
-    @Args('data') { species }: StaticReqDto,
+    @Args('data') { species }: StaticReqDto
   ): Promise<StaticResDto[]> {
     return this.staticService.getBreedsBySpecies(species);
   }
 
   @Query(() => [StaticResDto], { name: 'getFactsBySpecies' })
   public getFactsBySpecies(
-    @Args('data') { species }: StaticReqDto,
+    @Args('data') { species }: StaticReqDto
   ): Promise<StaticResDto[]> {
     return this.staticService.getFactsBySpecies(species);
   }

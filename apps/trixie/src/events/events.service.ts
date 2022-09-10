@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Injectable,
-  NotAcceptableException,
+  NotAcceptableException
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { DateTime } from 'luxon';
@@ -14,12 +14,12 @@ import { DeleteEventResDto } from './dto/delete-event-res.dto';
 import {
   CreatedEventResDto,
   EventResDto,
-  PatchedEventResDto,
+  PatchedEventResDto
 } from './dto/event-res.dto';
 import {
   AggregatedEventDocument,
   Event,
-  EventDocument,
+  EventDocument
 } from './schemas/event.schema';
 import { EVENT_CRUD_ERROR, EVENT_LIMIT_REACHED } from './_constants';
 
@@ -27,12 +27,12 @@ import { EVENT_CRUD_ERROR, EVENT_LIMIT_REACHED } from './_constants';
 export class EventsService {
   constructor(
     @InjectModel(Event.name) private readonly _eventModel: Model<EventDocument>,
-    @InjectModel(Pet.name) private readonly _petModel: Model<PetDocument>,
+    @InjectModel(Pet.name) private readonly _petModel: Model<PetDocument>
   ) {}
 
   public async getEventsByPet(
     userId: string,
-    petId: string,
+    petId: string
   ): Promise<EventResDto[]> {
     const aggregatedEventDocuments: AggregatedEventDocument[] =
       await this._petModel.aggregate([
@@ -40,40 +40,40 @@ export class EventsService {
           $match: {
             $and: [
               { owners: { $in: [userId] } },
-              { _id: new mongoose.Types.ObjectId(petId) },
-            ],
-          },
+              { _id: new mongoose.Types.ObjectId(petId) }
+            ]
+          }
         },
         {
           $lookup: {
             from: 'events',
             localField: '_id',
             foreignField: 'petId',
-            as: 'event',
-          },
+            as: 'event'
+          }
         },
         {
           $unwind: {
             path: '$event',
-            preserveNullAndEmptyArrays: false,
-          },
+            preserveNullAndEmptyArrays: false
+          }
         },
         {
           $project: {
             name: 1,
             event: 1,
-            _id: 0,
-          },
+            _id: 0
+          }
         },
         {
           $replaceRoot: {
-            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] },
-          },
-        },
+            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] }
+          }
+        }
       ]);
 
     return aggregatedEventDocuments.map((e) =>
-      EventResDto.fromAggregatedEventDocument(e),
+      EventResDto.fromAggregatedEventDocument(e)
     );
   }
 
@@ -82,22 +82,22 @@ export class EventsService {
       await this._petModel.aggregate([
         {
           $match: {
-            owners: { $in: [userId] },
-          },
+            owners: { $in: [userId] }
+          }
         },
         {
           $lookup: {
             from: 'events',
             localField: '_id',
             foreignField: 'petId',
-            as: 'event',
-          },
+            as: 'event'
+          }
         },
         {
           $unwind: {
             path: '$event',
-            preserveNullAndEmptyArrays: false,
-          },
+            preserveNullAndEmptyArrays: false
+          }
         },
         {
           $match: {
@@ -108,36 +108,36 @@ export class EventsService {
                     hour: 0,
                     minute: 0,
                     second: 0,
-                    millisecond: 0,
+                    millisecond: 0
                   })
-                  .toISO(),
-              ).toJSDate(),
-            },
-          },
+                  .toISO()
+              ).toJSDate()
+            }
+          }
         },
         {
           $project: {
             name: 1,
             event: 1,
-            _id: 0,
-          },
+            _id: 0
+          }
         },
         {
           $replaceRoot: {
-            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] },
-          },
-        },
+            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] }
+          }
+        }
       ]);
 
     return aggregatedEventDocuments.map((e) =>
-      EventResDto.fromAggregatedEventDocument(e),
+      EventResDto.fromAggregatedEventDocument(e)
     );
   }
 
   public async getEvent(
     userId: string,
     petId: string,
-    eventId: string,
+    eventId: string
   ): Promise<EventResDto> {
     const [aggregatedEventDocument]: AggregatedEventDocument[] =
       await this._petModel.aggregate([
@@ -145,15 +145,15 @@ export class EventsService {
           $match: {
             $and: [
               { owners: { $in: [userId] } },
-              { _id: new mongoose.Types.ObjectId(petId) },
-            ],
-          },
+              { _id: new mongoose.Types.ObjectId(petId) }
+            ]
+          }
         },
         {
           $lookup: {
             from: 'events',
             let: {
-              id: '$_id',
+              id: '$_id'
             },
             pipeline: [
               {
@@ -162,34 +162,34 @@ export class EventsService {
                     $and: [
                       { $eq: ['$_id', new mongoose.Types.ObjectId(eventId)] },
                       {
-                        $eq: ['$$id', '$petId'],
-                      },
-                    ],
-                  },
-                },
-              },
+                        $eq: ['$$id', '$petId']
+                      }
+                    ]
+                  }
+                }
+              }
             ],
-            as: 'event',
-          },
+            as: 'event'
+          }
         },
         {
           $unwind: {
             path: '$event',
-            preserveNullAndEmptyArrays: false,
-          },
+            preserveNullAndEmptyArrays: false
+          }
         },
         {
           $project: {
             name: 1,
             event: 1,
-            _id: 0,
-          },
+            _id: 0
+          }
         },
         {
           $replaceRoot: {
-            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] },
-          },
-        },
+            newRoot: { $mergeObjects: [{ petName: '$name' }, '$event'] }
+          }
+        }
       ]);
 
     if (!aggregatedEventDocument) {
@@ -201,7 +201,7 @@ export class EventsService {
 
   public async create(
     eventDto: CreateEventReqDto,
-    userId: string,
+    userId: string
   ): Promise<CreatedEventResDto> {
     // TODO: [Feature] Push notifications, logic if dto class validator ??
     // if (eventDto.isNotification) {
@@ -216,7 +216,7 @@ export class EventsService {
     // TODO: [CLEANUP] Subscription feature
     const currentEvents: EventResDto[] = await this.getEventsByPet(
       userId,
-      eventDto.petId,
+      eventDto.petId
     );
     if (currentEvents?.length >= 50) {
       throw new NotAcceptableException(EVENT_LIMIT_REACHED);
@@ -226,8 +226,8 @@ export class EventsService {
       .findOne({
         $and: [
           { _id: new mongoose.Types.ObjectId(eventDto.petId) },
-          { owners: userId },
-        ],
+          { owners: userId }
+        ]
       })
       .exec();
 
@@ -236,7 +236,7 @@ export class EventsService {
     }
 
     const createdEvent: EventDocument = await new this._eventModel({
-      ...eventDto,
+      ...eventDto
     }).save();
 
     return new CreatedEventResDto(createdEvent._id);
@@ -245,7 +245,7 @@ export class EventsService {
   public async update(
     _id: string,
     eventDto: CreateEventReqDto,
-    userId: string,
+    userId: string
   ): Promise<PatchedEventResDto> {
     // TODO: [Feature] Push notifications, logic if dto class validator ??
     // if (eventDto.isNotification) {
@@ -261,7 +261,7 @@ export class EventsService {
 
     const isUserOwnsEvent: boolean = await this._isUserOwnsEvent(
       eventId,
-      userId,
+      userId
     );
 
     if (!isUserOwnsEvent) {
@@ -270,7 +270,7 @@ export class EventsService {
 
     const createdEvent: EventDocument = await this._eventModel
       .findOneAndUpdate({ _id: eventId }, eventDto, {
-        new: true,
+        new: true
       })
       .exec();
 
@@ -282,7 +282,7 @@ export class EventsService {
 
     const isUserOwnsEvent: boolean = await this._isUserOwnsEvent(
       eventId,
-      userId,
+      userId
     );
 
     if (!isUserOwnsEvent) {
@@ -291,7 +291,7 @@ export class EventsService {
 
     const deletedEvent: EventDocument = await this._eventModel
       .findOneAndDelete({
-        $and: [{ _id: eventId }],
+        $and: [{ _id: eventId }]
       })
       .exec();
 
@@ -304,7 +304,7 @@ export class EventsService {
 
   private async _isUserOwnsEvent(
     eventId: mongoose.Types.ObjectId,
-    userId: string,
+    userId: string
   ): Promise<boolean> {
     try {
       const aggregatedEvent = (
@@ -312,30 +312,30 @@ export class EventsService {
           .aggregate([
             {
               $match: {
-                _id: eventId,
-              },
+                _id: eventId
+              }
             },
             {
               $lookup: {
                 from: 'pets',
                 localField: 'petId',
                 foreignField: '_id',
-                as: 'pet',
-              },
+                as: 'pet'
+              }
             },
             {
               $unwind: {
                 path: '$pet',
-                preserveNullAndEmptyArrays: true,
-              },
+                preserveNullAndEmptyArrays: true
+              }
             },
             {
               $match: {
                 'pet.owners': {
-                  $in: [userId],
-                },
-              },
-            },
+                  $in: [userId]
+                }
+              }
+            }
           ])
           .exec()
       )[0];

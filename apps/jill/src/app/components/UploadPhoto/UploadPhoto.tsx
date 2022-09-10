@@ -15,7 +15,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useTranslation } from 'react-i18next';
 import {
   dataURLtoFile,
-  getImageTypeFromBase64,
+  getImageTypeFromBase64
 } from '../../utils/formatter.utils';
 import './UploadPhoto.css';
 
@@ -25,7 +25,7 @@ type UploadPhotoProps = {
 } & StackProps;
 
 const Input = styled('input')({
-  display: 'none',
+  display: 'none'
 });
 
 const UploadPhoto = ({
@@ -96,7 +96,7 @@ const UploadPhoto = ({
           <Cropper
             style={{
               height: 320,
-              width: 320,
+              width: 320
             }}
             aspectRatio={1 / 1}
             preview=".img-preview"
@@ -131,7 +131,7 @@ const UploadPhoto = ({
               width: stackProps.width + 'px',
               height: stackProps.height + 'px',
               position: 'relative',
-              cursor: 'pinter',
+              cursor: 'pinter'
             }}
           >
             {initialPhoto === 'loading' ? (
@@ -147,7 +147,7 @@ const UploadPhoto = ({
                 sx={{
                   width: stackProps.width,
                   height: stackProps.height,
-                  opacity: hover ? 0.3 : 1,
+                  opacity: hover ? 0.3 : 1
                 }}
               />
             )}

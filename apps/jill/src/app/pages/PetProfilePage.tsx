@@ -24,7 +24,7 @@ import {
   DeletePetReqDto,
   PET_PROFILE_TAB,
   RemoveOwnerReqDto,
-  RemoveOwnerResDto,
+  RemoveOwnerResDto
 } from '../../types';
 import CenteredNoDataMessage from '../components/CenteredNoDataMessage';
 import AlertDialog from '../components/form/AlertDialog';
@@ -37,10 +37,10 @@ import {
   DELETE_EVENT_SCHEMA,
   DELETE_PET_SCHEMA,
   PET_SCHEMA,
-  REMOVE_OWNER_SCHEMA,
+  REMOVE_OWNER_SCHEMA
 } from '../hooks/api/schemas';
 import useGetPetProfileGQL, {
-  PetProfileGQLRes,
+  PetProfileGQLRes
 } from '../hooks/api/useGetPetProfileGQL';
 import useKeyPress from '../hooks/useKeyPress';
 import { useActiveProfileTabStore } from '../providers/store/active-pet-profile-tab/ActivePetProfileTabProvider';
@@ -61,21 +61,21 @@ const getInitialRadioValues = (): RadioFormDialog => {
 
 const getInitialEmailValues = (): EmailFormDialogValues => {
   return {
-    email: '',
+    email: ''
   };
 };
 
 const a11yTabProps = (index: number) => {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
   };
 };
 
 const radioValidationSchema = Yup.object({
   ownerId: Yup.string().required(
     i18next.t('fieldRequiredValidator', { fieldName: i18next.t('owner') })
-  ),
+  )
 });
 
 const PetProfilePage = () => {
@@ -87,14 +87,14 @@ const PetProfilePage = () => {
   const [addOwner, { loading: isAddOwnerLoading }] = useMutation(
     ADD_OWNER_SCHEMA,
     {
-      refetchQueries: [{ query: PET_SCHEMA, variables: { id: petId } }],
+      refetchQueries: [{ query: PET_SCHEMA, variables: { id: petId } }]
     }
   );
 
   const petRemovedCacheUpdate = (cache: ApolloCache<any>) => {
     const petProfileCacheId = cache.identify({
       id: data?.getPet?._id,
-      __typename: (data?.getPet as any)?.__typename,
+      __typename: (data?.getPet as any)?.__typename
     });
     setTimeout(() => {
       cache.evict({ id: petProfileCacheId });
@@ -111,7 +111,7 @@ const PetProfilePage = () => {
         if (removeOwner?._id === user?.uid) {
           navigate('/home');
         }
-      },
+      }
     }
   );
 
@@ -121,7 +121,7 @@ const PetProfilePage = () => {
       update: petRemovedCacheUpdate,
       onCompleted: () => {
         navigate('/home');
-      },
+      }
     }
   );
 
@@ -131,14 +131,14 @@ const PetProfilePage = () => {
       update: (
         cache: ApolloCache<any>,
         {
-          data,
+          data
         }: { data?: { deleteEvent: DeleteEventResDto } | null | undefined }
       ) => {
         setTimeout(() => {
           cache.evict({ id: `EventResDto:${data?.deleteEvent?._id}` });
           cache.gc();
         });
-      },
+      }
     }
   );
 
@@ -184,11 +184,11 @@ const PetProfilePage = () => {
               path,
               message: t('petOwnerExists', {
                 ownerName: ownerEmail,
-                petName: data?.getPet?.name || '',
-              }),
+                petName: data?.getPet?.name || ''
+              })
             })
           : true;
-      }),
+      })
   });
 
   const formikEmailOptions: FormikConfig<EmailFormDialogValues> = {
@@ -199,10 +199,10 @@ const PetProfilePage = () => {
       togglePetAddOwnerFormDialog();
       const addOwnerReqDto: AddOwnerReqDto = {
         ownerEmail: email,
-        petId: petId ?? '',
+        petId: petId ?? ''
       };
       addOwner({ variables: { addOwnerReqDto } });
-    },
+    }
   };
 
   const formikRadioOptions: FormikConfig<RadioFormDialog> = {
@@ -213,10 +213,10 @@ const PetProfilePage = () => {
       togglePetRemoveOwnerFormDialog();
       const removeOwnerReqDto: RemoveOwnerReqDto = {
         ownerId,
-        petId: petId ?? '',
+        petId: petId ?? ''
       };
       removeOwner({ variables: { removeOwnerReqDto } });
-    },
+    }
   };
 
   useEffect(() => {
@@ -233,7 +233,7 @@ const PetProfilePage = () => {
     isAddOwnerLoading,
     isRemoveOwnerLoading,
     isDeletePetLoading,
-    isDeleteEventLoading,
+    isDeleteEventLoading
   ]);
 
   const formikEmailValues = useFormik(formikEmailOptions);
@@ -264,7 +264,7 @@ const PetProfilePage = () => {
   ) => {
     setDeleteEventDialogState({
       event: IEventResDto,
-      isOpen: !deleteEventDialogState.isOpen,
+      isOpen: !deleteEventDialogState.isOpen
     });
   };
 
@@ -278,14 +278,14 @@ const PetProfilePage = () => {
   const handlePetDelete = () => {
     togglePetDeleteConfirmationDialog();
     const deletePetReqDto: DeletePetReqDto = {
-      _id: petId ?? '',
+      _id: petId ?? ''
     };
     deletePet({ variables: { deletePetReqDto } });
   };
 
   const handleEventDelete = () => {
     const deleteEventReqDto: DeleteEventReqDto = {
-      _id: deleteEventDialogState.event!._id,
+      _id: deleteEventDialogState.event!._id
     };
     toggleDeleteEventConfirmationDialog(null);
     deleteEvent({ variables: { deleteEventReqDto } });
@@ -298,14 +298,14 @@ const PetProfilePage = () => {
           position: 'sticky',
           top: `${getHeaderHeight(theme, isXs)}px`,
           paddingTop: isMdDown ? 0 : theme.spacing(2),
-          backgroundColor: theme.palette.background.default,
+          backgroundColor: theme.palette.background.default
         }}
         pet={pet}
         petActions={{
           updatePetLink,
           onAddOwnerClick: togglePetAddOwnerFormDialog,
           onRemoveOwnerClick: togglePetRemoveOwnerFormDialog,
-          onDeletePetClick: togglePetDeleteConfirmationDialog,
+          onDeletePetClick: togglePetDeleteConfirmationDialog
         }}
       />
     );
@@ -382,7 +382,7 @@ const PetProfilePage = () => {
       <AlertDialog
         dialogTitle={t('deletePet')}
         dialogDescription={t('deletePetDialogDescription', {
-          petName: pet?.name,
+          petName: pet?.name
         })}
         open={deletePetDialogOpen}
         onSubmit={handlePetDelete}
@@ -393,7 +393,7 @@ const PetProfilePage = () => {
         dialogDescription={t('deleteEventDialogDescription', {
           eventName: deleteEventDialogState.event
             ? getEventLabel(deleteEventDialogState.event!.type)
-            : null,
+            : null
         })}
         open={deleteEventDialogState.isOpen}
         onSubmit={handleEventDelete}
@@ -407,7 +407,7 @@ const PetProfilePage = () => {
           sx={{
             position: 'fixed',
             bottom: (theme) => theme.spacing(2),
-            right: (theme) => theme.spacing(2),
+            right: (theme) => theme.spacing(2)
           }}
           component={RouterLink}
           to={createEventLink}

@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import {
   numberedEnumValueLength,
-  numberTransformFormatter,
+  numberTransformFormatter
 } from '../../utils/formatter.utils';
 import { IsNumber, Max } from 'class-validator';
 import { Field, InputType, Int } from '@nestjs/graphql';

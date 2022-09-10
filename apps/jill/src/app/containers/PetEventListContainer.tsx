@@ -33,13 +33,13 @@ import { addEventToCalendar } from '../utils/calendar.utils';
 import {
   getUserDateFormat,
   isPast,
-  isTodayOrFuture,
+  isTodayOrFuture
 } from '../utils/date.utils';
 import {
   getEnumIntegerValues,
   getEventLabel,
   getEventOptions,
-  getHeaderHeight,
+  getHeaderHeight
 } from '../utils/factory.utils';
 import { isPlatformIOS, isPWA } from '../utils/platfom.utils';
 
@@ -64,18 +64,18 @@ type EventFilter = EVENT | 'all';
 
 enum SORTING {
   DESC,
-  ASC,
+  ASC
 }
 
 const eventTypes = (): DropDownOption<EVENT | 'all'>[] => [
   { label: i18next.t('all'), value: 'all' },
-  ...getEventOptions(),
+  ...getEventOptions()
 ];
 
 const getSortingLabel = (sorting: SORTING): string => {
   const dictionary = {
     [SORTING.ASC]: i18next.t('pastFirst'),
-    [SORTING.DESC]: i18next.t('futureFirst'),
+    [SORTING.DESC]: i18next.t('futureFirst')
   };
   return dictionary[sorting];
 };
@@ -85,14 +85,14 @@ const sortingOptions = (): DropDownOption<SORTING>[] =>
     (value: SORTING) =>
       ({
         label: getSortingLabel(value),
-        value,
+        value
       } as DropDownOption<SORTING>)
   );
 
 const defaultFilters: Filters = {
   isFutureOnly: false,
   selectedEvent: 'all',
-  selectedSorting: SORTING.DESC,
+  selectedSorting: SORTING.DESC
 };
 
 const PetEventListContainer = (props: PetEventsGridProps) => {
@@ -144,7 +144,7 @@ const PetEventListContainer = (props: PetEventsGridProps) => {
               petName,
               eventName: getEventLabel(type),
               eventDescription: description,
-              eventDate: date,
+              eventDate: date
             });
           };
 
@@ -203,7 +203,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     const val: EventFilter = event.target.value as EventFilter;
     onFiltersChanged({
       ...filters,
-      selectedEvent: val,
+      selectedEvent: val
     });
   };
 
@@ -211,7 +211,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     const sorting: SORTING = +event.target.value as SORTING;
     onFiltersChanged({
       ...filters,
-      selectedSorting: +sorting,
+      selectedSorting: +sorting
     });
   };
 
@@ -221,7 +221,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
     const isFutureOnly: boolean = event.target.checked;
     onFiltersChanged({
       ...filters,
-      isFutureOnly,
+      isFutureOnly
     });
   };
 
@@ -247,7 +247,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
             sx={{
               display: 'flex',
               flex: 1,
-              width: 0,
+              width: 0
             }}
           >
             <InputLabel id="event-type-label">{t('event')}</InputLabel>
@@ -273,7 +273,7 @@ const Toolbar = ({ filters, onFiltersChanged }: ToolbarProps) => {
             sx={{
               display: 'flex',
               flex: 1,
-              width: 0,
+              width: 0
             }}
           >
             <InputLabel id="sort-label">{t('sorting')}</InputLabel>

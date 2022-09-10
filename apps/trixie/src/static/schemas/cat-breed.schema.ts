@@ -8,7 +8,7 @@ export class CatBreed {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   name: string;
 }

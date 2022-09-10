@@ -5,9 +5,9 @@ const useGetPetByIdGQL = (petId: string) => {
   const {
     data,
     loading: isLoadingPet,
-    error: petLoadingError,
+    error: petLoadingError
   } = useQuery(PET_SCHEMA, {
-    variables: { id: petId },
+    variables: { id: petId }
   });
 
   return { pet: data, isLoadingPet, petLoadingError };

@@ -16,7 +16,7 @@ const initialFormValues: CRUPetFormValues = {
   weight: '',
   color: '',
   description: '',
-  avatar: null,
+  avatar: null
 };
 
 export const CreatePetContainer = () => {
@@ -26,7 +26,7 @@ export const CreatePetContainer = () => {
   const { loadCreatePet, isCreatePetLoading } = useCreatePetGQL({
     onCompleted: ({ createPet: { _id } }) => {
       navigate(`/pet/${_id}`);
-    },
+    }
   });
 
   useSetLoadingStatus({ isLoading: isCreatePetLoading });
@@ -40,7 +40,7 @@ export const CreatePetContainer = () => {
     weight,
     color,
     description,
-    avatar,
+    avatar
   }: CRUPetFormValues) => {
     const petReqDto: PetReqDto = {
       name,
@@ -54,7 +54,7 @@ export const CreatePetContainer = () => {
         : null,
       weight: Number.isInteger(Number.parseFloat(weight)) ? +weight : null,
       colour: !!color ? color : null,
-      notes: !!description ? description : null,
+      notes: !!description ? description : null
     };
 
     loadCreatePet(petReqDto, avatar);

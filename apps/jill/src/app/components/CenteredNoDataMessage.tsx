@@ -24,7 +24,7 @@ const ScreenCenteredMessage = (props: ScreenCenteredMessageProps) => {
         left: 0,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <Typography variant="h6">{message}</Typography>

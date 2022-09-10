@@ -40,28 +40,28 @@ const validationSchema = Yup.object({
     .nullable()
     .required(
       `${i18next.t('fieldRequiredValidator', {
-        fieldName: i18next.t('event'),
+        fieldName: i18next.t('event')
       })}`
     ),
   description: Yup.string().max(
     maxDescriptionFieldLength,
     `${i18next.t('fieldMaxLengthValidator', {
       fieldName: i18next.t('description'),
-      count: maxDescriptionFieldLength,
+      count: maxDescriptionFieldLength
     })}`
   ),
   date: Yup.date()
     .nullable()
     .required(
       `${i18next.t('fieldRequiredValidator', {
-        fieldName: i18next.t('date'),
+        fieldName: i18next.t('date')
       })}`
     )
     .typeError(
       i18next.t('fieldDateFormatValidator', {
-        format: getUserDateFormat().toUpperCase(),
+        format: getUserDateFormat().toUpperCase()
       })
-    ),
+    )
 });
 
 const CreateUpdateEventForm = (props: CreateUpdateEventFormProps) => {
@@ -77,12 +77,12 @@ const CreateUpdateEventForm = (props: CreateUpdateEventFormProps) => {
     setFieldTouched,
     values,
     touched,
-    errors,
+    errors
   } = useFormik<CRUEventFormValues>({
     initialValues,
     validationSchema,
     enableReinitialize: true,
-    onSubmit,
+    onSubmit
   });
 
   return (
@@ -149,7 +149,7 @@ const CreateUpdateEventForm = (props: CreateUpdateEventFormProps) => {
                 variant="outlined"
                 label={t('description')}
                 inputProps={{
-                  maxLength: 140,
+                  maxLength: 140
                 }}
                 name="description"
                 error={!!touched.description && !!errors.description}

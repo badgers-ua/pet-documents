@@ -7,7 +7,7 @@ import {
   FirebaseAppProvider,
   StorageProvider,
   SuspenseWithPerf,
-  useFirebaseApp,
+  useFirebaseApp
 } from 'reactfire';
 import { environment } from '../../environments/environment';
 import { Children } from '../../types';

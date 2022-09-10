@@ -9,7 +9,7 @@ import useUpdateEventGQL from '../../hooks/api/useUpdateEventGQL';
 import useSetLoadingStatus from '../../hooks/useSetLoadingStatus';
 import { getEventLabel } from '../../utils/factory.utils';
 import CreateUpdateEventForm, {
-  CRUEventFormValues,
+  CRUEventFormValues
 } from './_CreateUpdateEventForm';
 
 export const UpdateEventContainer = () => {
@@ -19,12 +19,12 @@ export const UpdateEventContainer = () => {
 
   const { event, isLoadingEvent } = useGetEventByIdGQL({
     eventId: id ?? '',
-    petId: petId ?? '',
+    petId: petId ?? ''
   });
 
   const { loadUpdateEvent, isUpdateEventLoading } = useUpdateEventGQL({
     petId: petId ?? '',
-    onCompleted: () => navigate(-1),
+    onCompleted: () => navigate(-1)
   });
 
   const handleSubmit = ({ event, date, description }: CRUEventFormValues) => {
@@ -35,7 +35,7 @@ export const UpdateEventContainer = () => {
       date: (date as any as DateTime)
         .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .toISO(),
-      description: !!description ? description : null,
+      description: !!description ? description : null
     };
 
     loadUpdateEvent(patchEventReqDto);
@@ -48,13 +48,13 @@ export const UpdateEventContainer = () => {
   }
 
   const {
-    getEvent: { type, date, description },
+    getEvent: { type, date, description }
   }: { getEvent: IEventResDto } = event!;
 
   const initialValues: CRUEventFormValues = {
     event: { label: getEventLabel(type), value: type } as DropDownOption<EVENT>,
     date: DateTime.fromISO(date),
-    description: description ?? '',
+    description: description ?? ''
   };
 
   return (

@@ -21,14 +21,14 @@ const usePetsGQL = (): Pets => {
   }, []);
 
   const { getPets: pets }: PetsGQLRes = data ?? {
-    getPets: [],
+    getPets: []
   };
 
   const sortedPets: IPetResDto[] = sortBy(pets, 'name') ?? [];
 
   return {
     pets: sortedPets,
-    isLoading: loading,
+    isLoading: loading
   };
 };
 

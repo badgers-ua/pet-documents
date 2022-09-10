@@ -11,9 +11,9 @@ const useGetPetProfileGQL = (petId: string) => {
   const {
     data,
     loading: isLoading,
-    error: petLoadingError,
+    error: petLoadingError
   } = useQuery(PET_PROFILE_GQL, {
-    variables: { petId },
+    variables: { petId }
   });
 
   return { data, isLoading, petLoadingError };

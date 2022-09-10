@@ -9,12 +9,12 @@ import {
   IsOptional,
   IsString,
   Max,
-  MaxLength,
+  MaxLength
 } from 'class-validator';
 import {
   booleanTransformFormatter,
   numberedEnumValueLength,
-  numberTransformFormatter,
+  numberTransformFormatter
 } from '../../utils/formatter.utils';
 
 @InputType()

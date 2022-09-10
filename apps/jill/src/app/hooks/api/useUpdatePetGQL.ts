@@ -4,7 +4,7 @@ import { PatchPetReqDto } from '../../../types';
 import {
   PATCH_PET_SCHEMA,
   PETS_SCHEMA_AND_UPCOMING_EVENTS_GQL,
-  PET_SCHEMA,
+  PET_SCHEMA
 } from './schemas';
 
 type UseUpdatePetGQLProps = {
@@ -18,9 +18,9 @@ const useUpdatePetGQL = ({ petId, onCompleted }: UseUpdatePetGQLProps) => {
     {
       refetchQueries: [
         { query: PETS_SCHEMA_AND_UPCOMING_EVENTS_GQL },
-        { query: PET_SCHEMA, variables: { id: petId } },
+        { query: PET_SCHEMA, variables: { id: petId } }
       ],
-      onCompleted,
+      onCompleted
     }
   );
 
@@ -37,7 +37,7 @@ const useUpdatePetGQL = ({ petId, onCompleted }: UseUpdatePetGQLProps) => {
 
   return {
     loadUpdatePet,
-    isUpdatePetLoading,
+    isUpdatePetLoading
   };
 };
 
