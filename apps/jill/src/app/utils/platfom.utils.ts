@@ -10,7 +10,7 @@ export const isPlatformIOS = () => {
       'iPod Simulator',
       'iPad',
       'iPhone',
-      'iPod',
+      'iPod'
     ].includes(navigator.userAgent) ||
     (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
   );

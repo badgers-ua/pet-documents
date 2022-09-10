@@ -11,7 +11,7 @@ export const addEventToCalendar = (params: AddEventToCalendarParams) => {
   const calendarOptions: CalendarOptions = {
     title: calendarTitle,
     description: eventDescription,
-    start: DateTime.fromISO(eventDate).toJSDate(),
+    start: DateTime.fromISO(eventDate).toJSDate()
   };
 
   const iCalendar = new ICalendar(calendarOptions);

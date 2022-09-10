@@ -82,7 +82,7 @@ type LogOutUserMenuProps = {
 
 // TODO: theme.palette...
 const EventsPaper = styled(Paper)(() => ({
-  background: 'linear-gradient(to top, #212121, #212121 75%, #333 75%)',
+  background: 'linear-gradient(to top, #212121, #212121 75%, #333 75%)'
 }));
 
 const UserMenu = (props: LogOutUserMenuProps) => {
@@ -123,17 +123,17 @@ const UserMenu = (props: LogOutUserMenuProps) => {
         anchorEl={anchorEl}
         sx={{
           '* > ul': {
-            padding: 0,
-          },
+            padding: 0
+          }
         }}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         keepMounted
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         open={open}
         onClose={handleClose}
@@ -171,7 +171,7 @@ const UserMenu = (props: LogOutUserMenuProps) => {
                 sx={{
                   width: '100%',
                   borderRadius: '0',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'flex-start'
                 }}
               >
                 <SettingsIcon />
@@ -184,7 +184,7 @@ const UserMenu = (props: LogOutUserMenuProps) => {
                 sx={{
                   width: '100%',
                   borderRadius: '0',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'flex-start'
                 }}
               >
                 <LogoutIcon />
@@ -239,17 +239,17 @@ const LanguageMenu = () => {
         anchorEl={anchorEl}
         sx={{
           '* > ul': {
-            padding: 0,
-          },
+            padding: 0
+          }
         }}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         keepMounted
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         open={open}
         onClose={handleClose}
@@ -266,7 +266,7 @@ const LanguageMenu = () => {
                   key={l}
                   sx={{
                     justifyContent:
-                      l === i18n.language ? 'space-between' : 'flex-end',
+                      l === i18n.language ? 'space-between' : 'flex-end'
                   }}
                 >
                   {l === i18n.language && (

@@ -17,8 +17,8 @@ const useCachedBreedsBySpeciesGQL = () => {
     const cachedBreedsRes = apolloClient.readQuery({
       query: GET_BREEDS_BY_SPECIES_SCHEMA,
       variables: {
-        species,
-      },
+        species
+      }
     });
 
     return sortBy<DropDownOption<string>>(
@@ -31,7 +31,7 @@ const useCachedBreedsBySpeciesGQL = () => {
 
   return {
     loadCachedBreedsBySpecies: (species: SPECIES) =>
-      getCachedBreedOptions(species),
+      getCachedBreedOptions(species)
   };
 };
 

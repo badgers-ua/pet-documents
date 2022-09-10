@@ -10,28 +10,28 @@ export class Event {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.Number,
-    trim: true,
+    trim: true
   })
   type: EVENT;
 
   @Prop({
     required: true,
     type: mongoose.Schema.Types.Date,
-    trim: true,
+    trim: true
   })
   date: string;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   description?: string;
 
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
-    trim: true,
+    trim: true
   })
   petId: mongoose.Types.ObjectId;
 

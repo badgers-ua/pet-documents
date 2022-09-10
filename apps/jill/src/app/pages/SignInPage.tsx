@@ -24,7 +24,7 @@ const BackgroundImage = styled(Box)(() => ({
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  opacity: 0.5,
+  opacity: 0.5
 }));
 
 const SignInPaper = styled(Paper)(() => ({
@@ -41,7 +41,7 @@ const SignInPaper = styled(Paper)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 1,
+  zIndex: 1
 }));
 
 const SignInPage = () => {

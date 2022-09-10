@@ -107,8 +107,8 @@ const resources: Resource = {
       grooming: 'Grooming',
       settings: 'Settings',
       activeProfileTab: 'Active tab at pet profile (only mobile devices)',
-      homePage: 'Home page',
-    },
+      homePage: 'Home page'
+    }
   },
   uk: {
     translation: {
@@ -214,9 +214,9 @@ const resources: Resource = {
       settings: 'Налаштування',
       activeProfileTab:
         'Активна вкладка профілю улюбленця (лише мобільні пристрої)',
-      homePage: 'Стартова сторінка',
-    },
-  },
+      homePage: 'Стартова сторінка'
+    }
+  }
 };
 
 i18n
@@ -227,9 +227,9 @@ i18n
     fallbackLng: 'en',
     debug: !environment.production,
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
-    react: { useSuspense: true },
+    react: { useSuspense: true }
   });
 
 document.documentElement.lang = i18n.language;

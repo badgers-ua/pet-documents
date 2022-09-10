@@ -4,7 +4,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Stack,
+  Stack
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import {
   DropDownOption,
   LOCAL_STORAGE_KEY,
-  PET_PROFILE_TAB,
+  PET_PROFILE_TAB
 } from '../../types';
 import usePetsGQL from '../hooks/api/usePets';
 import useSetLoadingStatus from '../hooks/useSetLoadingStatus';
@@ -35,14 +35,14 @@ const SettingsPage = () => {
   const routes: DropDownOption<string>[] = [
     {
       label: t('main'),
-      value: '/',
+      value: '/'
     },
     ...pets.map(({ name, _id }) => {
       return {
         label: name,
-        value: `/pet/${_id}`,
+        value: `/pet/${_id}`
       };
-    }),
+    })
   ];
 
   const [selectedHomePageRoute, setSelectedHomePageRoute] = useState<string>(

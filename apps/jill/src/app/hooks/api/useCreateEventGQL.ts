@@ -4,7 +4,7 @@ import { CreateEventReqDto } from '../../../types';
 import {
   CREATE_EVENT_SCHEMA,
   EVENTS_SCHEMA,
-  UPCOMING_EVENTS_SCHEMA,
+  UPCOMING_EVENTS_SCHEMA
 } from './schemas';
 
 type UseCreateEventGQLProps = {
@@ -18,9 +18,9 @@ const useCreateEventGQL = ({ petId, onCompleted }: UseCreateEventGQLProps) => {
     {
       refetchQueries: [
         { query: EVENTS_SCHEMA, variables: { petId } },
-        { query: UPCOMING_EVENTS_SCHEMA },
+        { query: UPCOMING_EVENTS_SCHEMA }
       ],
-      onCompleted,
+      onCompleted
     }
   );
 

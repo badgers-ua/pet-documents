@@ -4,7 +4,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
-  NotAcceptableException,
+  NotAcceptableException
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { auth } from 'firebase-admin';
@@ -30,7 +30,7 @@ import {
   Breed,
   CreatedPetResDto,
   PatchedPetResDto,
-  PetResDto,
+  PetResDto
 } from './dto/pet-res.dto';
 import { RemoveOwnerReqDto } from './dto/remove-owner-req.dto';
 import { RemoveOwnerResDto } from './dto/remove-owner-res.dto';
@@ -40,7 +40,7 @@ import {
   PET_LAST_OWNER_ERROR,
   PET_LIMIT_REACHED,
   PET_LIMIT_REACHED_BY,
-  USER_CRUD_ERROR,
+  USER_CRUD_ERROR
 } from './_constants';
 
 type PetWithBreedDocument = PetDocument & { breed: Breed };
@@ -94,10 +94,10 @@ export class PetsService {
         { _id: new mongoose.Types.ObjectId(petId) },
         {
           ...petDto,
-          avatar: petDto.isAvatarChanged ? newFileBucketPath : avatar,
+          avatar: petDto.isAvatarChanged ? newFileBucketPath : avatar
         },
         {
-          new: true,
+          new: true
         }
       )
       .exec();
@@ -147,7 +147,7 @@ export class PetsService {
         { _id: new mongoose.Types.ObjectId(pet._id) },
         { owners: [...pet.owners, requestedUser.uid] },
         {
-          new: true,
+          new: true
         }
       )
       .exec();
@@ -191,10 +191,10 @@ export class PetsService {
       .findOneAndUpdate(
         { _id: new mongoose.Types.ObjectId(pet._id) },
         {
-          owners: pet.owners.filter((user_id) => user_id !== ownerId),
+          owners: pet.owners.filter((user_id) => user_id !== ownerId)
         },
         {
-          new: true,
+          new: true
         }
       )
       .exec();
@@ -223,7 +223,7 @@ export class PetsService {
     }
 
     const [petResDto]: [PetResDto] = (await this.petResDtosFromPetDocuments([
-      petDocument,
+      petDocument
     ])) as [PetResDto];
 
     return petResDto;
@@ -274,7 +274,7 @@ export class PetsService {
           colour,
           notes,
           weight,
-          avatar,
+          avatar
         } = petDocuments[i];
         petResDtos.push({
           _id,
@@ -293,7 +293,7 @@ export class PetsService {
                   .file(avatar)
                   .getSignedUrl({ expires, action: 'read' })
               )[0]
-            : avatar,
+            : avatar
         });
       }
 
@@ -326,7 +326,7 @@ export class PetsService {
     const newPet: Pet = {
       owners: [ownerId],
       avatar: avatarFileName,
-      ...petDto,
+      ...petDto
     };
 
     const { _id } = await new this.petModel(newPet).save();
@@ -343,8 +343,8 @@ export class PetsService {
         .findOne({
           $and: [
             { _id: new mongoose.Types.ObjectId(petId) },
-            { owners: ownerId },
-          ],
+            { owners: ownerId }
+          ]
         })
         .exec()
     )
@@ -355,13 +355,13 @@ export class PetsService {
             from(
               this.eventModel
                 .deleteMany({
-                  petId: petId,
+                  petId: petId
                 })
                 .exec()
             ),
             !!petDocument.avatar
               ? from(this._bucket.file(petDocument.avatar).delete())
-              : of(undefined),
+              : of(undefined)
           ]);
         }),
         map(() => undefined),
@@ -393,7 +393,7 @@ export class PetsService {
 
     const [{ name: bucketFilePath }] = await this._bucket.upload(filePath, {
       gzip: true,
-      destination: `pet-photos/${fileName}`,
+      destination: `pet-photos/${fileName}`
     });
 
     unlinkSync(filePath);
@@ -429,7 +429,7 @@ export class PetsService {
                 .getSignedUrl({ expires, action: 'read' })
             )[0]
           : petDocument.avatar,
-        owners: owners.filter(({ _id }) => petDocument.owners.includes(_id)),
+        owners: owners.filter(({ _id }) => petDocument.owners.includes(_id))
       };
 
       petResDtos.push(petResDto);
@@ -448,55 +448,55 @@ export class PetsService {
         $match: {
           ...(petId ? { _id: new mongoose.Types.ObjectId(petId) } : {}),
           owners: {
-            $in: [ownerId],
-          },
-        },
+            $in: [ownerId]
+          }
+        }
       },
       {
         $addFields: {
           breed: {
-            $toObjectId: '$breed',
-          },
-        },
+            $toObjectId: '$breed'
+          }
+        }
       },
       {
         $lookup: {
           from: 'catbreeds',
           localField: 'breed',
           foreignField: '_id',
-          as: 'catBreed',
-        },
+          as: 'catBreed'
+        }
       },
       {
         $lookup: {
           from: 'dogbreeds',
           localField: 'breed',
           foreignField: '_id',
-          as: 'dogBreed',
-        },
+          as: 'dogBreed'
+        }
       },
       {
         $unwind: {
           path: '$catBreed',
-          preserveNullAndEmptyArrays: true,
-        },
+          preserveNullAndEmptyArrays: true
+        }
       },
       {
         $unwind: {
           path: '$dogBreed',
-          preserveNullAndEmptyArrays: true,
-        },
+          preserveNullAndEmptyArrays: true
+        }
       },
       {
         $addFields: {
-          breed: ['$catBreed', '$dogBreed'],
-        },
+          breed: ['$catBreed', '$dogBreed']
+        }
       },
       {
         $project: {
           catBreed: 0,
-          dogBreed: 0,
-        },
+          dogBreed: 0
+        }
       },
       {
         $addFields: {
@@ -505,18 +505,18 @@ export class PetsService {
               input: '$breed',
               as: 'breed',
               cond: {
-                $ne: ['$$breed', null],
-              },
-            },
-          },
-        },
+                $ne: ['$$breed', null]
+              }
+            }
+          }
+        }
       },
       {
         $unwind: {
           path: '$breed',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
+          preserveNullAndEmptyArrays: true
+        }
+      }
     ];
   }
 }

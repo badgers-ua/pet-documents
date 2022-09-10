@@ -47,7 +47,7 @@ const PetInfoCardContainer = (props: PetInfoProps) => {
     weight,
     gender,
     breed,
-    avatar,
+    avatar
   } = pet;
   const { t } = useTranslation();
 

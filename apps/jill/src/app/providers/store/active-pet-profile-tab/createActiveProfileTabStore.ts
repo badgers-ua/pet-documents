@@ -15,7 +15,7 @@ const state = (
       localStorage.getItem(LOCAL_STORAGE_KEY.ACTIVE_PET_PROFILE_TAB) ??
       PET_PROFILE_TAB.PROFILE
     ),
-    setActiveTab: (activeTab: PET_PROFILE_TAB) => set({ activeTab }),
+    setActiveTab: (activeTab: PET_PROFILE_TAB) => set({ activeTab })
   };
 };
 

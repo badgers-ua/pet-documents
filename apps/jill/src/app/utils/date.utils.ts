@@ -3,7 +3,7 @@ import { DateTime, DateTimeUnit } from 'luxon';
 
 export const getUserDateFormat = (): string => {
   const userDate: string = Intl.DateTimeFormat(
-    navigator.languages as string[],
+    navigator.languages as string[]
   ).format(DateTime.now().set({ year: 1970, month: 12, day: 18 }).toJSDate());
   const userDateFormat: string = userDate
     .replace('18', 'dd')
@@ -26,7 +26,7 @@ export const getAge = (birthDate: string): string => {
   const {
     years = 0,
     months = 0,
-    days = 0,
+    days = 0
   } = date2.diff(date1, ['years', 'months', 'days']).toObject();
 
   const roundedDays: number = Math.round(days);
@@ -52,7 +52,7 @@ export const getAge = (birthDate: string): string => {
 
 export const getDateWithMidnightUTCTime = (isoDate: string): string => {
   const dateTimeMidnightLocal: DateTime = DateTime.fromISO(
-    DateTime.fromISO(isoDate).toISODate(),
+    DateTime.fromISO(isoDate).toISODate()
   );
   const dateTimeMidnightUTC = DateTime.utc(
     dateTimeMidnightLocal.year,
@@ -61,7 +61,7 @@ export const getDateWithMidnightUTCTime = (isoDate: string): string => {
     dateTimeMidnightLocal.hour,
     dateTimeMidnightLocal.minute,
     dateTimeMidnightLocal.second,
-    dateTimeMidnightLocal.millisecond,
+    dateTimeMidnightLocal.millisecond
   );
   return dateTimeMidnightUTC.toISO();
 };

@@ -20,7 +20,7 @@ export class PopulateStaticDbService {
     @InjectModel(CatFact.name)
     private readonly catFactModel: Model<CatFactDocument>,
     @InjectModel(DogFact.name)
-    private readonly dogFactModel: Model<DogFactDocument>,
+    private readonly dogFactModel: Model<DogFactDocument>
   ) {
     this.populateDb();
   }

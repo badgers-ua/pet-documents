@@ -25,7 +25,7 @@ import useCachedBreedsBySpeciesGQL from '../../hooks/cache/useCachedBreedsBySpec
 import { getUserDateFormat } from '../../utils/date.utils';
 import {
   getSortedGenderOptions,
-  getSortedSpeciesOptions,
+  getSortedSpeciesOptions
 } from '../../utils/factory.utils';
 
 export interface CRUPetFormValues {
@@ -62,19 +62,19 @@ const validationSchema = Yup.object({
       maxNameFieldLength,
       `${i18next.t('fieldMaxLengthValidator', {
         fieldName: i18next.t('name'),
-        count: maxNameFieldLength,
+        count: maxNameFieldLength
       })}`
     )
     .required(
       `${i18next.t('fieldRequiredValidator', {
-        fieldName: i18next.t('name'),
+        fieldName: i18next.t('name')
       })}`
     ),
   species: Yup.object()
     .nullable()
     .required(
       `${i18next.t('fieldRequiredValidator', {
-        fieldName: i18next.t('species'),
+        fieldName: i18next.t('species')
       })}`
     ),
   breed: Yup.object().nullable(),
@@ -82,28 +82,28 @@ const validationSchema = Yup.object({
   weight: Yup.number().max(
     maxWeightFieldCount,
     `${i18next.t('fieldMaxWeightValidator', {
-      count: maxWeightFieldCount,
+      count: maxWeightFieldCount
     })}`
   ),
   color: Yup.string().max(
     maxColorFieldLength,
     `${i18next.t('fieldMaxLengthValidator', {
       fieldName: i18next.t('weight'),
-      count: maxColorFieldLength,
+      count: maxColorFieldLength
     })}`
   ),
   description: Yup.string().max(
     maxDescriptionFieldLength,
     `${i18next.t('fieldMaxLengthValidator', {
       fieldName: i18next.t('description'),
-      count: maxDescriptionFieldLength,
+      count: maxDescriptionFieldLength
     })}`
   ),
   dateOfBirth: Yup.date()
     .nullable()
     .typeError(
       i18next.t('fieldDateFormatValidator', {
-        format: getUserDateFormat().toUpperCase(),
+        format: getUserDateFormat().toUpperCase()
       })
     )
     .max(
@@ -112,7 +112,7 @@ const validationSchema = Yup.object({
         .toJSDate(),
       i18next.t('fieldDateOfBirthFutureDateValidator')
     ),
-  avatar: Yup.object().nullable(),
+  avatar: Yup.object().nullable()
 });
 
 const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
@@ -127,12 +127,12 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
     setFieldTouched,
     values,
     touched,
-    errors,
+    errors
   } = useFormik<CRUPetFormValues>({
     initialValues,
     validationSchema,
     enableReinitialize: true,
-    onSubmit,
+    onSubmit
   });
 
   const { loadBreedsBySpecies, isLoadingBreeds } = useGetBreedsBySpeciesGQL();
@@ -166,7 +166,7 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
                     variant="outlined"
                     label={t('name')}
                     inputProps={{
-                      maxLength: maxNameFieldLength,
+                      maxLength: maxNameFieldLength
                     }}
                     required
                     name="name"
@@ -237,7 +237,7 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
                             </InputAdornment>
                           )}
                         </>
-                      ),
+                      )
                     }}
                   />
                 )}
@@ -331,7 +331,7 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
                 variant="outlined"
                 label={t('color')}
                 inputProps={{
-                  maxLength: 20,
+                  maxLength: 20
                 }}
                 name="color"
                 error={!!touched.color && !!errors.color}
@@ -347,7 +347,7 @@ const CreateUpdatePetForm = (props: CreateUpdatePetFormProps) => {
                 variant="outlined"
                 label={t('description')}
                 inputProps={{
-                  maxLength: 140,
+                  maxLength: 140
                 }}
                 name="description"
                 error={!!touched.description && !!errors.description}

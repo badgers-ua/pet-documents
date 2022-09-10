@@ -10,7 +10,7 @@ export type LoaderState = {
 const state = (set: SetState<LoaderState>): LoaderState => {
   return {
     isLoading: false,
-    setIsLoading: (isLoading: boolean) => set({ isLoading }),
+    setIsLoading: (isLoading: boolean) => set({ isLoading })
   };
 };
 

@@ -34,43 +34,43 @@ const routes: Route[] = [
   {
     path: '/',
     Component: HomePage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/create-event/:petId',
     Component: CreateEventPage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/create-pet',
     Component: CreatePetPage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/update-pet/:id',
     Component: UpdatePetPage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/update-event/:petId/:id',
     Component: UpdateEventPage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/pet/:id',
     Component: PetProfilePage,
-    isProtected: true,
+    isProtected: true
   },
   {
     path: '/sign-in',
     Component: SignInPage,
-    isProtected: false,
+    isProtected: false
   },
   {
     path: '/settings',
     Component: SettingsPage,
-    isProtected: true,
-  },
+    isProtected: true
+  }
 ];
 
 const RoutesLocal = () => {

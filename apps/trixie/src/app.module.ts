@@ -13,7 +13,7 @@ import { StaticModule } from './static/static.module';
   imports: [
     MongooseModule.forRoot(environment.databaseUrl, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -21,13 +21,13 @@ import { StaticModule } from './static/static.module';
       playground: !environment.production,
       cache: 'bounded',
       autoSchemaFile: true,
-      csrfPrevention: true,
+      csrfPrevention: true
     }),
     FireBaseModule.forRoot(),
     AuthModule,
     StaticModule,
     PetsModule,
-    EventsModule,
-  ],
+    EventsModule
+  ]
 })
 export class AppModule {}

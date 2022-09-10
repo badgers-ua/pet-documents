@@ -4,11 +4,11 @@ import { EventsService } from './events.service';
 import {
   CreatedEventResDto,
   EventResDto,
-  PatchedEventResDto,
+  PatchedEventResDto
 } from './dto/event-res.dto';
 import {
   CreateEventReqDto,
-  PatchEventReqDto,
+  PatchEventReqDto
 } from './dto/create-event-req.dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { FirebaseAuthGuard } from '../shared/guards/firebase-auth/firebase-auth-guard';
@@ -26,14 +26,14 @@ export class EventsResolver {
   @Query(() => [EventResDto], { name: 'getEventsByPet' })
   public getEventsByPet(
     @User() { uid }: auth.UserRecord,
-    @Args('data') { petId }: GetEventsReqDto,
+    @Args('data') { petId }: GetEventsReqDto
   ): Promise<EventResDto[]> {
     return this.eventService.getEventsByPet(uid, petId);
   }
 
   @Query(() => [EventResDto], { name: 'getUpcomingEvents' })
   public getUpcomingEvents(
-    @User() { uid }: auth.UserRecord,
+    @User() { uid }: auth.UserRecord
   ): Promise<EventResDto[]> {
     return this.eventService.getUpcomingEvents(uid);
   }
@@ -41,7 +41,7 @@ export class EventsResolver {
   @Query(() => EventResDto, { name: 'getEvent' })
   public getEventByPetAndId(
     @User() { uid }: auth.UserRecord,
-    @Args('data') { petId, _id }: GetEventReqDto,
+    @Args('data') { petId, _id }: GetEventReqDto
   ): Promise<EventResDto> {
     return this.eventService.getEvent(uid, petId, _id);
   }
@@ -49,7 +49,7 @@ export class EventsResolver {
   @Mutation(() => CreatedEventResDto, { name: 'createEvent' })
   public createEvent(
     @User() { uid }: auth.UserRecord,
-    @Args('data') eventReqDto: CreateEventReqDto,
+    @Args('data') eventReqDto: CreateEventReqDto
   ): Promise<CreatedEventResDto> {
     return this.eventService.create(eventReqDto, uid);
   }
@@ -57,7 +57,7 @@ export class EventsResolver {
   @Mutation(() => PatchedEventResDto, { name: 'patchEvent' })
   public patchEvent(
     @User() { uid }: auth.UserRecord,
-    @Args('data') eventReqDto: PatchEventReqDto,
+    @Args('data') eventReqDto: PatchEventReqDto
   ): Promise<PatchedEventResDto> {
     return this.eventService.update(eventReqDto._id, eventReqDto, uid);
   }
@@ -65,7 +65,7 @@ export class EventsResolver {
   @Mutation(() => DeleteEventResDto, { name: 'deleteEvent' })
   public deleteEvent(
     @User() { uid }: auth.UserRecord,
-    @Args('data') { _id }: DeleteEventReqDto,
+    @Args('data') { _id }: DeleteEventReqDto
   ): Promise<DeleteEventResDto> {
     return this.eventService.delete(_id, uid);
   }

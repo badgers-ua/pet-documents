@@ -14,7 +14,7 @@ const createUploadLink = require('apollo-upload-client/public/createUploadLink.j
 
 const cache = new InMemoryCache();
 const defaultOptions: DefaultOptions = {
-  watchQuery: { fetchPolicy: 'cache-and-network' },
+  watchQuery: { fetchPolicy: 'cache-and-network' }
 };
 const apiUrl = `${environment.apiUrl}/graphql`;
 
@@ -27,7 +27,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     const loadCache = async () => {
       await persistCache({
         cache,
-        storage: new LocalStorageWrapper(window.localStorage),
+        storage: new LocalStorageWrapper(window.localStorage)
       });
       setCacheLoaded(true);
     };
@@ -45,8 +45,8 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     return {
       headers: {
         ...headers,
-        authorization: `Bearer ${token}`,
-      },
+        authorization: `Bearer ${token}`
+      }
     };
   });
 
@@ -72,7 +72,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     connectToDevTools: !environment.production,
     link,
     cache,
-    defaultOptions,
+    defaultOptions
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;

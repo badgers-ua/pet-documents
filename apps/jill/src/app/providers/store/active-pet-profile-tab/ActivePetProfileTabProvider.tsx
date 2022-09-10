@@ -3,7 +3,7 @@ import createContext from 'zustand/context';
 import { Children } from '../../../../types';
 
 import createActiveProfileTabStore, {
-  ActivePetProfileTabState,
+  ActivePetProfileTabState
 } from './createActiveProfileTabStore';
 
 const Context = createContext<StoreApi<ActivePetProfileTabState>>();

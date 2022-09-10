@@ -23,7 +23,7 @@ const UpdatePetContainer = () => {
     petId: petId ?? '',
     onCompleted: () => {
       navigate('/home');
-    },
+    }
   });
 
   const handleSubmit = ({
@@ -35,7 +35,7 @@ const UpdatePetContainer = () => {
     weight,
     color,
     description,
-    avatar,
+    avatar
   }: CRUPetFormValues) => {
     const patchPetReqDto: PatchPetReqDto = {
       _id: petId ?? '',
@@ -51,9 +51,9 @@ const UpdatePetContainer = () => {
       weight: isNumber(Number.parseFloat(weight))
         ? Number.parseFloat(weight)
         : null,
-      colour: color ? color : null,
-      notes: description ? description : null,
-      isAvatarChanged: avatar instanceof File,
+      colour: !!color ? color : null,
+      notes: !!description ? description : null,
+      isAvatarChanged: avatar instanceof File
     };
 
     loadUpdatePet(patchPetReqDto, avatar);
@@ -75,15 +75,15 @@ const UpdatePetContainer = () => {
       weight,
       colour,
       notes,
-      avatar,
-    },
+      avatar
+    }
   }: { getPet: IPetResDto } = pet;
 
   const initialValues: CRUPetFormValues = {
     name,
     species: {
       label: getSpeciesLabel(species),
-      value: species,
+      value: species
     } as DropDownOption<SPECIES>,
     breed: !!breed?._id
       ? ({ label: breed!.name, value: breed!._id } as DropDownOption<string>)
@@ -91,14 +91,14 @@ const UpdatePetContainer = () => {
     gender: Number.isInteger(gender)
       ? ({
           label: getGenderLabel(gender!),
-          value: gender,
+          value: gender
         } as DropDownOption<GENDER>)
       : null,
     dateOfBirth: !!dateOfBirth ? DateTime.fromISO(dateOfBirth) : null,
     weight: isNumber(weight) ? weight!.toString() : '',
     color: colour ?? '',
     description: notes ?? '',
-    avatar: null,
+    avatar: null
   };
 
   return (
