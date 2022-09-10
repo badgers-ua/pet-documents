@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { IPetResDto } from '@pdoc/types';
+import { isNumber } from 'lodash';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -138,7 +139,7 @@ const PetInfoCardContainer = (props: PetInfoProps) => {
               </Grid>
 
               <Grid item xs={12} sm={6} md={12} lg={6}>
-                {Number.isInteger(weight) && (
+                {isNumber(weight) && (
                   <ListItem alignItems="flex-start">
                     <ListItemAvatar>
                       <FitnessCenterIcon
