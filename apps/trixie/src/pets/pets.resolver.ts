@@ -13,7 +13,7 @@ import { PatchPetReqDto, PetReqDto } from './dto/pet-req.dto';
 import {
   CreatedPetResDto,
   PatchedPetResDto,
-  PetResDto,
+  PetResDto
 } from './dto/pet-res.dto';
 import { RemoveOwnerReqDto } from './dto/remove-owner-req.dto';
 import { RemoveOwnerResDto } from './dto/remove-owner-res.dto';

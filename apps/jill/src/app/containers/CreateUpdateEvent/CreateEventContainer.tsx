@@ -6,13 +6,13 @@ import useCreateEventGQL from '../../hooks/api/useCreateEventGQL';
 import useSetLoadingStatus from '../../hooks/useSetLoadingStatus';
 import { getDateWithMidnightUTCTime } from '../../utils/date.utils';
 import CreateUpdateEventForm, {
-  CRUEventFormValues,
+  CRUEventFormValues
 } from './_CreateUpdateEventForm';
 
 const initialFormValues: CRUEventFormValues = {
   event: null,
   date: DateTime.now(),
-  description: '',
+  description: ''
 };
 
 export const CreateEvent = () => {
@@ -24,7 +24,7 @@ export const CreateEvent = () => {
     petId: petId ?? '',
     onCompleted: () => {
       navigate(`/pet/${petId}`);
-    },
+    }
   });
 
   const handleSubmit = ({ event, date, description }: CRUEventFormValues) => {
@@ -32,7 +32,7 @@ export const CreateEvent = () => {
       petId: petId ?? '',
       type: +(event as any)?.value,
       date: getDateWithMidnightUTCTime((date as any as DateTime)?.toISO()),
-      description: description ? description : null,
+      description: description ? description : null
     };
 
     loadCreateEvent(createEventReqDto);

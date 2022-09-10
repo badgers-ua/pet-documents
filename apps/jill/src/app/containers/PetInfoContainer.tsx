@@ -46,7 +46,7 @@ const PetInfoCardContainer = (props: PetInfoProps) => {
     weight,
     gender,
     breed,
-    avatar,
+    avatar
   } = pet;
   const { t } = useTranslation();
 
@@ -118,7 +118,7 @@ const PetInfoCardContainer = (props: PetInfoProps) => {
                     <ListItemText
                       primary={t('birthday')}
                       secondary={DateTime.fromISO(dateOfBirth!).toFormat(
-                        getUserDateFormat(),
+                        getUserDateFormat()
                       )}
                     />
                   </ListItem>

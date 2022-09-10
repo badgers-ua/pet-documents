@@ -7,11 +7,11 @@ import { auth } from 'firebase-admin';
 @Injectable()
 export class FirebaseAuthStrategy extends PassportStrategy(
   Strategy,
-  'firebase-auth',
+  'firebase-auth'
 ) {
   constructor(@Inject(FB_AUTH_PROVIDER_KEY) private readonly auth: auth.Auth) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     });
   }
 

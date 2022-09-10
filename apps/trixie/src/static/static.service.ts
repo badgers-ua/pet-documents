@@ -18,7 +18,7 @@ export class StaticService {
     @InjectModel(CatFact.name)
     private readonly catFactModel: Model<CatFactDocument>,
     @InjectModel(DogFact.name)
-    private readonly dogFactModel: Model<DogFactDocument>,
+    private readonly dogFactModel: Model<DogFactDocument>
   ) {}
 
   public async getCatBreeds(): Promise<StaticResDto[]> {

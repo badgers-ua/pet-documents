@@ -12,8 +12,8 @@ const petModel = { name: Pet.name, schema: PetSchema };
 @Module({
   imports: [
     MongooseModule.forFeature([eventModel, petModel]),
-    FirebaseAuthGuardModule,
+    FirebaseAuthGuardModule
   ],
-  providers: [EventsService, EventsResolver],
+  providers: [EventsService, EventsResolver]
 })
 export class EventsModule {}

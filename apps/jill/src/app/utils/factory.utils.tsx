@@ -17,7 +17,7 @@ export const getSortedGenderOptions = (): DropDownOption<GENDER>[] =>
       (value: GENDER) =>
         ({
           label: getGenderLabel(value),
-          value,
+          value
         } as DropDownOption<GENDER>)
     ),
     'label'
@@ -26,7 +26,7 @@ export const getSortedGenderOptions = (): DropDownOption<GENDER>[] =>
 export const getSpeciesLabel = (species: SPECIES) => {
   const dictionary = {
     [SPECIES.CAT]: i18next.t('cat'),
-    [SPECIES.DOG]: i18next.t('dog'),
+    [SPECIES.DOG]: i18next.t('dog')
   };
   return dictionary[species];
 };
@@ -37,7 +37,7 @@ export const getSortedSpeciesOptions = (): DropDownOption<SPECIES>[] =>
       (value: SPECIES) =>
         ({
           label: getSpeciesLabel(value),
-          value,
+          value
         } as DropDownOption<SPECIES>)
     ),
     'label'
@@ -65,7 +65,7 @@ export const getEventLabel = (event: EVENT) => {
     [EVENT.ESTRUS]: i18next.t('eventEstrus'),
     [EVENT.MOLT]: i18next.t('eventMolt'),
     [EVENT.OTHER]: i18next.t('other'),
-    [EVENT.GROOMING]: i18next.t('grooming'),
+    [EVENT.GROOMING]: i18next.t('grooming')
   };
   return dictionary[event];
 };
@@ -77,7 +77,7 @@ export const getEventOptions = (): DropDownOption<EVENT>[] => {
     (value: EVENT) =>
       ({
         label: getEventLabel(value),
-        value,
+        value
       } as DropDownOption<EVENT>)
   );
 

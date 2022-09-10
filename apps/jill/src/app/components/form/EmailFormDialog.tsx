@@ -21,7 +21,7 @@ export const EmailFormDialog = ({
     handleReset,
     errors,
     touched,
-    values,
+    values
   },
   ...other
 }: FormDialogProps) => {

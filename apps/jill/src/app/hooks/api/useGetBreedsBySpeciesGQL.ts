@@ -5,17 +5,17 @@ import { SPECIES } from '@pdoc/types';
 
 const useGetBreedsBySpeciesGQL = () => {
   const [getBreedsBySpecies, { loading: isLoadingBreeds }] = useLazyQuery(
-    GET_BREEDS_BY_SPECIES_SCHEMA,
+    GET_BREEDS_BY_SPECIES_SCHEMA
   );
 
   const loadBreedsBySpecies = useMemo(
     () => (species: SPECIES) => getBreedsBySpecies({ variables: { species } }),
-    [getBreedsBySpecies],
+    [getBreedsBySpecies]
   );
 
   return {
     loadBreedsBySpecies,
-    isLoadingBreeds,
+    isLoadingBreeds
   };
 };
 
