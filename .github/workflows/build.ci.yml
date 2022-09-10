@@ -2,7 +2,7 @@ name: Build Apps CI
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
   push:
     branches: [main]
   workflow_dispatch:
