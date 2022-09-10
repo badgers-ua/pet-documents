@@ -1,4 +1,10 @@
-import { Field, GraphQLISODateTime, InputType, Int } from '@nestjs/graphql';
+import {
+  Field,
+  Float,
+  GraphQLISODateTime,
+  InputType,
+  Int,
+} from '@nestjs/graphql';
 import { GENDER, SPECIES } from '@pdoc/types';
 import { Transform } from 'class-transformer';
 import {
@@ -9,12 +15,12 @@ import {
   IsOptional,
   IsString,
   Max,
-  MaxLength,
+  MaxLength
 } from 'class-validator';
 import {
   booleanTransformFormatter,
   numberedEnumValueLength,
-  numberTransformFormatter,
+  numberTransformFormatter
 } from '../../utils/formatter.utils';
 
 @InputType()
@@ -65,7 +71,7 @@ export class PetReqDto {
   @Max(100)
   @IsNumber()
   @IsOptional()
-  @Field(() => Int, { nullable: true })
+  @Field(() => Float, { nullable: true })
   readonly weight?: number;
 }
 

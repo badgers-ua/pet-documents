@@ -25,7 +25,7 @@ export const dateDtoTransformFormatter = ({ value }: TransformFnParams) => {
 };
 
 export const numberTransformFormatter = ({ value }: TransformFnParams) => {
-  return Number.isInteger(Number.parseFloat(value)) ? +value : null;
+  return isNumber(Number.parseFloat(value)) ? Number.parseFloat(value) : null;
 };
 
 export const booleanTransformFormatter = ({ value }: TransformFnParams) => {

@@ -13,7 +13,7 @@ const GoogleButton = ({ onClick }: GoogleButtonProps) => {
     <Button
       sx={{
         background: '#fff',
-        textTransform: 'none',
+        textTransform: 'none'
       }}
       onClick={onClick}
       variant="contained"

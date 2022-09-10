@@ -20,10 +20,10 @@ const dogFactModel = { name: DogFact.name, schema: DogFactSchema };
       catBreedModel,
       dogBreedModel,
       catFactModel,
-      dogFactModel,
+      dogFactModel
     ]),
-    FirebaseAuthGuardModule,
+    FirebaseAuthGuardModule
   ],
-  providers: [StaticService, StaticResolver, PopulateStaticDbService],
+  providers: [StaticService, StaticResolver, PopulateStaticDbService]
 })
 export class StaticModule {}

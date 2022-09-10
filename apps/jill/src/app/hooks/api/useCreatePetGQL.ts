@@ -12,7 +12,7 @@ const useCreatePetGQL = ({ onCompleted }: UseCreatePetGQLProps) => {
     CREATE_PET_SCHEMA,
     {
       refetchQueries: [{ query: PETS_SCHEMA }],
-      onCompleted,
+      onCompleted
     }
   );
 
@@ -29,7 +29,7 @@ const useCreatePetGQL = ({ onCompleted }: UseCreatePetGQLProps) => {
 
   return {
     loadCreatePet,
-    isCreatePetLoading,
+    isCreatePetLoading
   };
 };
 

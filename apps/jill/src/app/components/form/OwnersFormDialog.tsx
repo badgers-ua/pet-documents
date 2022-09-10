@@ -29,7 +29,7 @@ export const OwnersFormDialog = ({
     handleReset,
     errors,
     touched,
-    values,
+    values
   },
   ...other
 }: RadioFormDialogProps) => {

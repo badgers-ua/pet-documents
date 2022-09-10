@@ -13,7 +13,7 @@ export class FireBaseModule {
       environment.fbServiceAccount as ServiceAccount;
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      storageBucket: environment.fbBucketUrl,
+      storageBucket: environment.fbBucketUrl
     });
 
     const bucket: Bucket = admin.storage().bucket();
@@ -24,14 +24,14 @@ export class FireBaseModule {
       providers: [
         {
           provide: FB_BUCKET_PROVIDER_KEY,
-          useValue: bucket,
+          useValue: bucket
         },
         {
           provide: FB_AUTH_PROVIDER_KEY,
-          useValue: auth,
-        },
+          useValue: auth
+        }
       ],
-      exports: [FB_BUCKET_PROVIDER_KEY, FB_AUTH_PROVIDER_KEY],
+      exports: [FB_BUCKET_PROVIDER_KEY, FB_AUTH_PROVIDER_KEY]
     };
   }
 }

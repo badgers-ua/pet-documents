@@ -7,7 +7,7 @@ export type NotistackCloseButtonProps = {
 };
 
 const NotistackCloseButton = ({
-  notificationKey,
+  notificationKey
 }: NotistackCloseButtonProps) => {
   const { closeSnackbar } = useSnackbar();
   return (

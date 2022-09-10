@@ -43,7 +43,7 @@ export class EventResDto implements IEventResDto {
     type: EVENT,
     petId: string,
     date: string,
-    description?: string, // TODO: [Feature]: Push notifications // public isNotification: boolean,
+    description?: string // TODO: [Feature]: Push notifications // public isNotification: boolean,
   ) {
     this._id = _id;
     this.petName = petName;
@@ -59,7 +59,7 @@ export class EventResDto implements IEventResDto {
     petId,
     petName,
     date,
-    description,
+    description
   }: // TODO: [Feature]: Push notifications // isNotification,
   AggregatedEventDocument): EventResDto {
     return new EventResDto(
@@ -68,7 +68,7 @@ export class EventResDto implements IEventResDto {
       type,
       petId.toHexString(),
       date,
-      description,
+      description
       // TODO: [Feature]: Push notifications
       // isNotification,
     );

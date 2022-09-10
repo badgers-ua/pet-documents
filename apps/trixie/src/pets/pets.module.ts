@@ -23,9 +23,9 @@ const eventModel = { name: Event.name, schema: EventSchema };
       petModel,
       catBreedModel,
       dogBreedModel,
-      eventModel,
-    ]),
+      eventModel
+    ])
   ],
-  providers: [PetsService, PetsResolver],
+  providers: [PetsService, PetsResolver]
 })
 export class PetsModule {}

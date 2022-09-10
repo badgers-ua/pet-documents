@@ -17,9 +17,7 @@ export const getPetAvatarLogoBySpecies = (
     [SPECIES.CAT]: (
       <CatSVG data-test-id="cat-icon" width={size} height={size} />
     ),
-    [SPECIES.DOG]: (
-      <DogSVG data-test-id="dog-icon" width={size} height={size} />
-    ),
+    [SPECIES.DOG]: <DogSVG data-test-id="dog-icon" width={size} height={size} />
   };
   return dictionary[species];
 };
@@ -31,7 +29,7 @@ export const getPetAvatarLogoBySpecies = (
 export const getGenderLabel = (gender: GENDER) => {
   const dictionary = {
     [GENDER.MALE]: i18next.t('male'),
-    [GENDER.FEMALE]: i18next.t('female'),
+    [GENDER.FEMALE]: i18next.t('female')
   };
   return dictionary[gender];
 };

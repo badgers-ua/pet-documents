@@ -58,7 +58,7 @@ const HomePage = () => {
         sx={{
           position: 'fixed',
           bottom: (theme) => theme.spacing(2),
-          right: (theme) => theme.spacing(2),
+          right: (theme) => theme.spacing(2)
         }}
         component={RouterLink}
         to={'/create-pet'}

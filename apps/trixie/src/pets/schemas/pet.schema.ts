@@ -9,69 +9,69 @@ export class Pet {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   name: string;
 
   @Prop({
     required: true,
-    type: [mongoose.Schema.Types.String],
+    type: [mongoose.Schema.Types.String]
   })
   owners: string[];
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.Number,
-    trim: true,
+    trim: true
   })
   species: SPECIES;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   breed?: string;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.Number,
-    trim: true,
+    trim: true
   })
   gender?: GENDER;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.Date,
-    trim: true,
+    trim: true
   })
   dateOfBirth?: string;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   colour?: string;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   notes?: string;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.Number,
-    trim: true,
+    trim: true
   })
   weight?: number;
 
   @Prop({
     required: false,
     type: mongoose.Schema.Types.String,
-    trim: true,
+    trim: true
   })
   avatar?: string;
 }

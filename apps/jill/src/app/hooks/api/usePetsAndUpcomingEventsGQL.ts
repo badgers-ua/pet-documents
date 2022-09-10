@@ -28,10 +28,10 @@ const usePetsAndUpcomingEventsGQL = (): PetsAndUpcomingEvents => {
 
   const {
     getUpcomingEvents: upcomingEvents,
-    getPets: pets,
+    getPets: pets
   }: PetsAndUpcomingEventsGQLRes = data ?? {
     getPets: [],
-    getUpcomingEvents: [],
+    getUpcomingEvents: []
   };
 
   const sortedPets: IPetResDto[] = sortBy(pets, 'name') ?? [];
@@ -52,7 +52,7 @@ const usePetsAndUpcomingEventsGQL = (): PetsAndUpcomingEvents => {
     pets: sortedPets,
     upcomingEvents: sortedUpcomingEvents,
     todayEvents: sortedTodayEvents,
-    isLoading: loading,
+    isLoading: loading
   };
 };
 

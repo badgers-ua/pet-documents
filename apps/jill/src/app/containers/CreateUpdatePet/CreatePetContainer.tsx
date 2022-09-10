@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +17,7 @@ const initialFormValues: CRUPetFormValues = {
   weight: '',
   color: '',
   description: '',
-  avatar: null,
+  avatar: null
 };
 
 export const CreatePetContainer = () => {
@@ -26,7 +27,7 @@ export const CreatePetContainer = () => {
   const { loadCreatePet, isCreatePetLoading } = useCreatePetGQL({
     onCompleted: ({ createPet: { _id } }) => {
       navigate(`/pet/${_id}`);
-    },
+    }
   });
 
   useSetLoadingStatus({ isLoading: isCreatePetLoading });
@@ -40,7 +41,7 @@ export const CreatePetContainer = () => {
     weight,
     color,
     description,
-    avatar,
+    avatar
   }: CRUPetFormValues) => {
     const petReqDto: PetReqDto = {
       name,
@@ -52,9 +53,11 @@ export const CreatePetContainer = () => {
       dateOfBirth: !!dateOfBirth
         ? getDateWithMidnightUTCTime((dateOfBirth as any as DateTime)!.toISO())
         : null,
-      weight: Number.isInteger(Number.parseFloat(weight)) ? +weight : null,
+      weight: isNumber(Number.parseFloat(weight))
+        ? Number.parseFloat(weight)
+        : null,
       colour: !!color ? color : null,
-      notes: !!description ? description : null,
+      notes: !!description ? description : null
     };
 
     loadCreatePet(petReqDto, avatar);

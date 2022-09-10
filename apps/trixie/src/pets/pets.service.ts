@@ -4,7 +4,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
-  NotAcceptableException,
+  NotAcceptableException
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { auth } from 'firebase-admin';
@@ -30,7 +30,7 @@ import {
   Breed,
   CreatedPetResDto,
   PatchedPetResDto,
-  PetResDto,
+  PetResDto
 } from './dto/pet-res.dto';
 import { RemoveOwnerReqDto } from './dto/remove-owner-req.dto';
 import { RemoveOwnerResDto } from './dto/remove-owner-res.dto';
@@ -40,7 +40,7 @@ import {
   PET_LAST_OWNER_ERROR,
   PET_LIMIT_REACHED,
   PET_LIMIT_REACHED_BY,
-  USER_CRUD_ERROR,
+  USER_CRUD_ERROR
 } from './_constants';
 
 type PetWithBreedDocument = PetDocument & { breed: Breed };
@@ -55,14 +55,14 @@ export class PetsService {
     private readonly catBreedModel: Model<CatBreedDocument>,
     @InjectModel(DogBreed.name)
     private readonly dogBreedModel: Model<DogBreedDocument>,
-    private readonly usersService: UsersService,
+    private readonly usersService: UsersService
   ) {}
 
   public async patchPet(
     petId: string,
     avatar,
     ownerId: string,
-    petDto: PatchPetReqDto,
+    petDto: PatchPetReqDto
   ): Promise<PatchedPetResDto> {
     const existingPet = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
@@ -94,11 +94,11 @@ export class PetsService {
         { _id: new mongoose.Types.ObjectId(petId) },
         {
           ...petDto,
-          avatar: petDto.isAvatarChanged ? newFileBucketPath : avatar,
+          avatar: petDto.isAvatarChanged ? newFileBucketPath : avatar
         },
         {
-          new: true,
-        },
+          new: true
+        }
       )
       .exec();
 
@@ -108,7 +108,7 @@ export class PetsService {
   public async addOwner(
     petId: string,
     currentOwnerId: string,
-    { ownerEmail }: AddOwnerReqDto,
+    { ownerEmail }: AddOwnerReqDto
   ): Promise<AddOwnerResDto> {
     const pet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
@@ -132,13 +132,13 @@ export class PetsService {
 
     if (newOwnerCurrentPets?.length >= 2) {
       throw new NotAcceptableException(
-        PET_LIMIT_REACHED_BY(requestedUser?.email),
+        PET_LIMIT_REACHED_BY(requestedUser?.email)
       );
     }
 
     if (pet.owners.toString().includes(requestedUser.uid)) {
       throw new BadRequestException(
-        petHasOwnerMessageFormatter(pet.name, ownerEmail),
+        petHasOwnerMessageFormatter(pet.name, ownerEmail)
       );
     }
 
@@ -147,8 +147,8 @@ export class PetsService {
         { _id: new mongoose.Types.ObjectId(pet._id) },
         { owners: [...pet.owners, requestedUser.uid] },
         {
-          new: true,
-        },
+          new: true
+        }
       )
       .exec();
 
@@ -158,7 +158,7 @@ export class PetsService {
   public async removeOwner(
     petId: string,
     currentOwnerId: string,
-    { ownerId }: RemoveOwnerReqDto,
+    { ownerId }: RemoveOwnerReqDto
   ): Promise<RemoveOwnerResDto> {
     const pet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
@@ -169,7 +169,7 @@ export class PetsService {
     }
 
     const requestedUser: auth.UserRecord = await this.usersService.getUserById(
-      ownerId,
+      ownerId
     );
 
     if (!requestedUser) {
@@ -191,11 +191,11 @@ export class PetsService {
       .findOneAndUpdate(
         { _id: new mongoose.Types.ObjectId(pet._id) },
         {
-          owners: pet.owners.filter((user_id) => user_id !== ownerId),
+          owners: pet.owners.filter((user_id) => user_id !== ownerId)
         },
         {
-          new: true,
-        },
+          new: true
+        }
       )
       .exec();
 
@@ -204,7 +204,7 @@ export class PetsService {
 
   public async getPetByIdAndOwner(
     petId: string,
-    ownerId: string,
+    ownerId: string
   ): Promise<PetResDto> {
     const [petDocument]: [PetWithBreedDocument] = (await this.petModel
       .aggregate(this.petAggregation(ownerId, petId))
@@ -215,7 +215,7 @@ export class PetsService {
     }
 
     const { users }: auth.GetUsersResult = await this.usersService.getUsers(
-      petDocument.owners.map((id) => ({ uid: id })),
+      petDocument.owners.map((id) => ({ uid: id }))
     );
 
     if (!users?.length) {
@@ -223,7 +223,7 @@ export class PetsService {
     }
 
     const [petResDto]: [PetResDto] = (await this.petResDtosFromPetDocuments([
-      petDocument,
+      petDocument
     ])) as [PetResDto];
 
     return petResDto;
@@ -232,7 +232,7 @@ export class PetsService {
   public async getPetsByOwner(
     ownerId: string,
     isBreedDetailsRequested: boolean,
-    isOwnerDetailsRequested: boolean,
+    isOwnerDetailsRequested: boolean
   ): Promise<PetResDto[]> {
     const getPetResDtosWithBreedandOwners = async (): Promise<PetResDto[]> => {
       const petDocuments: PetWithBreedDocument[] = await this.petModel
@@ -247,7 +247,7 @@ export class PetsService {
       }
 
       const petResDtos: PetResDto[] = await this.petResDtosFromPetDocuments(
-        petDocuments,
+        petDocuments
       );
       return petResDtos;
     };
@@ -274,7 +274,7 @@ export class PetsService {
           colour,
           notes,
           weight,
-          avatar,
+          avatar
         } = petDocuments[i];
         petResDtos.push({
           _id,
@@ -293,7 +293,7 @@ export class PetsService {
                   .file(avatar)
                   .getSignedUrl({ expires, action: 'read' })
               )[0]
-            : avatar,
+            : avatar
         });
       }
 
@@ -308,7 +308,7 @@ export class PetsService {
   public async createPet(
     petDto: PetReqDto,
     avatar,
-    ownerId: string,
+    ownerId: string
   ): Promise<CreatedPetResDto> {
     // TODO: [CLEANUP] Subscription feature
     const petDocuments: PetDocument[] = await this.petModel
@@ -326,7 +326,7 @@ export class PetsService {
     const newPet: Pet = {
       owners: [ownerId],
       avatar: avatarFileName,
-      ...petDto,
+      ...petDto
     };
 
     const { _id } = await new this.petModel(newPet).save();
@@ -336,17 +336,17 @@ export class PetsService {
 
   public async deletePet(
     petId: string,
-    ownerId: string,
+    ownerId: string
   ): Promise<DeletePetResDto> | never {
     await from(
       this.petModel
         .findOne({
           $and: [
             { _id: new mongoose.Types.ObjectId(petId) },
-            { owners: ownerId },
-          ],
+            { owners: ownerId }
+          ]
         })
-        .exec(),
+        .exec()
     )
       .pipe(
         switchMap((petDocument: PetDocument) => {
@@ -355,19 +355,19 @@ export class PetsService {
             from(
               this.eventModel
                 .deleteMany({
-                  petId: petId,
+                  petId: petId
                 })
-                .exec(),
+                .exec()
             ),
             !!petDocument.avatar
               ? from(this._bucket.file(petDocument.avatar).delete())
-              : of(undefined),
+              : of(undefined)
           ]);
         }),
         map(() => undefined),
         catchError(() => {
           throw new BadRequestException(PET_CRUD_ERROR);
-        }),
+        })
       )
       .toPromise();
 
@@ -376,7 +376,7 @@ export class PetsService {
 
   private async uploadAvatarToBucket(
     { createReadStream, mimetype }: any,
-    id = uuid(),
+    id = uuid()
   ): Promise<string> {
     const stream = createReadStream();
 
@@ -384,7 +384,7 @@ export class PetsService {
 
     const filePath: string = await new Promise((resolve) => {
       const createdStream = stream.pipe(
-        createWriteStream(join(__dirname, '/' + fileName)),
+        createWriteStream(join(__dirname, '/' + fileName))
       );
       setTimeout(() => {
         resolve(createdStream.path);
@@ -393,7 +393,7 @@ export class PetsService {
 
     const [{ name: bucketFilePath }] = await this._bucket.upload(filePath, {
       gzip: true,
-      destination: `pet-photos/${fileName}`,
+      destination: `pet-photos/${fileName}`
     });
 
     unlinkSync(filePath);
@@ -402,7 +402,7 @@ export class PetsService {
   }
 
   private async petResDtosFromPetDocuments(
-    petDocuments: PetWithBreedDocument[],
+    petDocuments: PetWithBreedDocument[]
   ): Promise<PetResDto[]> {
     const { users }: auth.ListUsersResult =
       await this.usersService.getAllUsers();
@@ -429,7 +429,7 @@ export class PetsService {
                 .getSignedUrl({ expires, action: 'read' })
             )[0]
           : petDocument.avatar,
-        owners: owners.filter(({ _id }) => petDocument.owners.includes(_id)),
+        owners: owners.filter(({ _id }) => petDocument.owners.includes(_id))
       };
 
       petResDtos.push(petResDto);
@@ -448,55 +448,55 @@ export class PetsService {
         $match: {
           ...(petId ? { _id: new mongoose.Types.ObjectId(petId) } : {}),
           owners: {
-            $in: [ownerId],
-          },
-        },
+            $in: [ownerId]
+          }
+        }
       },
       {
         $addFields: {
           breed: {
-            $toObjectId: '$breed',
-          },
-        },
+            $toObjectId: '$breed'
+          }
+        }
       },
       {
         $lookup: {
           from: 'catbreeds',
           localField: 'breed',
           foreignField: '_id',
-          as: 'catBreed',
-        },
+          as: 'catBreed'
+        }
       },
       {
         $lookup: {
           from: 'dogbreeds',
           localField: 'breed',
           foreignField: '_id',
-          as: 'dogBreed',
-        },
+          as: 'dogBreed'
+        }
       },
       {
         $unwind: {
           path: '$catBreed',
-          preserveNullAndEmptyArrays: true,
-        },
+          preserveNullAndEmptyArrays: true
+        }
       },
       {
         $unwind: {
           path: '$dogBreed',
-          preserveNullAndEmptyArrays: true,
-        },
+          preserveNullAndEmptyArrays: true
+        }
       },
       {
         $addFields: {
-          breed: ['$catBreed', '$dogBreed'],
-        },
+          breed: ['$catBreed', '$dogBreed']
+        }
       },
       {
         $project: {
           catBreed: 0,
-          dogBreed: 0,
-        },
+          dogBreed: 0
+        }
       },
       {
         $addFields: {
@@ -505,18 +505,18 @@ export class PetsService {
               input: '$breed',
               as: 'breed',
               cond: {
-                $ne: ['$$breed', null],
-              },
-            },
-          },
-        },
+                $ne: ['$$breed', null]
+              }
+            }
+          }
+        }
       },
       {
         $unwind: {
           path: '$breed',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
+          preserveNullAndEmptyArrays: true
+        }
+      }
     ];
   }
 }

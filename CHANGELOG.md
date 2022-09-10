@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.3
+
+_Sep 10, 2022_
+
+- Fixed: weight couldn't contain decimal places.
+
 ## v1.7.2
 
 _Sep 09, 2022_

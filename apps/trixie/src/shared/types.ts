@@ -17,13 +17,13 @@ export class Owner implements IOwner {
     uid,
     displayName,
     photoURL,
-    email,
+    email
   }: UserRecord): Owner {
     return {
       _id: uid,
       name: displayName,
       avatar: photoURL,
-      email,
+      email
     };
   }
 }
