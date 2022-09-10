@@ -16,7 +16,7 @@ const App = () => {
     }
 
     if (data?.signedIn) {
-      return;
+      return undefined;
     }
 
     if (pathname === '/sign-in') {
