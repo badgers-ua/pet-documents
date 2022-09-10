@@ -64,6 +64,7 @@ export class PetsService {
     ownerId: string,
     petDto: PatchPetReqDto
   ): Promise<PatchedPetResDto> {
+    console.log(1);
     const existingPet = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
       .exec();
