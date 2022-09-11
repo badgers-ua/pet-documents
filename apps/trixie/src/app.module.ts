@@ -21,7 +21,7 @@ import { StaticModule } from './static/static.module';
       playground: !environment.production,
       cache: 'bounded',
       autoSchemaFile: true,
-      csrfPrevention: true
+      csrfPrevention: environment.production
     }),
     FireBaseModule.forRoot(),
     AuthModule,

@@ -46,7 +46,7 @@ const HomePage = () => {
     return null;
   }
 
-  if (!pets.length && !todayEvents.length && upcomingEvents.length) {
+  if (!pets.length && !todayEvents.length && !upcomingEvents.length) {
     return null;
   }
 

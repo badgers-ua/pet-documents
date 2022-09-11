@@ -64,7 +64,7 @@ export class PetsService {
     ownerId: string,
     petDto: PatchPetReqDto
   ): Promise<PatchedPetResDto> {
-    const existingPet = await this.petModel
+    const existingPet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
       .exec();
 
@@ -86,7 +86,10 @@ export class PetsService {
     let newFileBucketPath: string | null = null;
 
     if (petDto.isAvatarChanged) {
-      newFileBucketPath = await this.uploadAvatarToBucket(avatar);
+      newFileBucketPath = await this.uploadAvatarToBucket(
+        avatar,
+        existingPet.owners
+      );
     }
 
     const { _id } = await this.petModel
@@ -259,7 +262,6 @@ export class PetsService {
         .find({ owners: { $in: [ownerId] } }, { __v: 0 })
         .exec();
 
-      const expires: number = new Date().setDate(new Date().getDate() + 7);
       const petResDtos: PetResDto[] = [];
 
       for (let i = 0; i < petDocuments.length; i++) {
@@ -287,13 +289,7 @@ export class PetsService {
           colour,
           notes,
           weight,
-          avatar: avatar
-            ? (
-                await this._bucket
-                  .file(avatar)
-                  .getSignedUrl({ expires, action: 'read' })
-              )[0]
-            : avatar
+          avatar
         });
       }
 
@@ -320,7 +316,7 @@ export class PetsService {
     }
 
     const avatarFileName: string = !!avatar
-      ? await this.uploadAvatarToBucket(avatar)
+      ? await this.uploadAvatarToBucket(avatar, [ownerId])
       : null;
 
     const newPet: Pet = {
@@ -376,6 +372,7 @@ export class PetsService {
 
   private async uploadAvatarToBucket(
     { createReadStream, mimetype }: any,
+    ownerIds: string[],
     id = uuid()
   ): Promise<string> {
     const stream = createReadStream();
@@ -396,6 +393,12 @@ export class PetsService {
       destination: `pet-photos/${fileName}`
     });
 
+    const metadata = {
+      ...Object.fromEntries(ownerIds.map((id: string) => [id, id]))
+    };
+
+    this._bucket.file(bucketFilePath).setMetadata({ metadata });
+
     unlinkSync(filePath);
 
     return bucketFilePath;
@@ -412,7 +415,6 @@ export class PetsService {
     }
 
     const owners: Owner[] = users.map(Owner.fromAuthUser);
-    const expires: number = this.getAvatarExpireTime();
 
     const petResDtos: PetResDto[] = [];
 
@@ -422,13 +424,7 @@ export class PetsService {
       const petResDto: PetResDto = {
         ...petDocument,
         _id: petDocument._id,
-        avatar: petDocument.avatar
-          ? (
-              await this._bucket
-                .file(petDocument.avatar)
-                .getSignedUrl({ expires, action: 'read' })
-            )[0]
-          : petDocument.avatar,
+        avatar: petDocument.avatar,
         owners: owners.filter(({ _id }) => petDocument.owners.includes(_id))
       };
 
