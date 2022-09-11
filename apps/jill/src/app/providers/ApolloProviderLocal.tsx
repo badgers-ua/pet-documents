@@ -48,6 +48,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     return {
       headers: {
         ...headers,
+        'apollo-require-preflight': true,
         authorization: `Bearer ${token}`
       }
     };
