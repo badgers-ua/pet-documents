@@ -11,7 +11,6 @@ module.exports = {
     {
       name: 'trixie',
       script: './dist/apps/trixie/main.js',
-      watch: true,
       env_development: {
         PORT: ${1},
         NODE_ENV: 'development',
