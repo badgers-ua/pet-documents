@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.5
+
+_Sep 11, 2022_
+
+- API pet photos improvements
+
 ## v1.7.4
 
 _Sep 11, 2022_

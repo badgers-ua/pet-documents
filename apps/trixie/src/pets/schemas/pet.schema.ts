@@ -1,11 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
 import { GENDER, SPECIES } from '@pdoc/types';
+import * as mongoose from 'mongoose';
 
 export type PetDocument = Pet & mongoose.Document;
 
 @Schema()
 export class Pet {
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    trim: true
+  })
+  _id: mongoose.Types.ObjectId;
   @Prop({
     required: true,
     type: mongoose.Schema.Types.String,
