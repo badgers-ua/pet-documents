@@ -88,7 +88,8 @@ export class PetsService {
     if (petDto.isAvatarChanged) {
       newFileBucketPath = await this.uploadAvatarToBucket(
         avatar,
-        existingPet.owners
+        existingPet.owners,
+        existingPet._id
       );
     }
 
@@ -315,13 +316,16 @@ export class PetsService {
       throw new NotAcceptableException(PET_LIMIT_REACHED);
     }
 
+    const petId = new mongoose.Types.ObjectId();
+
     const avatarFileName: string = !!avatar
-      ? await this.uploadAvatarToBucket(avatar, [ownerId])
+      ? await this.uploadAvatarToBucket(avatar, [ownerId], petId.toHexString())
       : null;
 
     const newPet: Pet = {
       owners: [ownerId],
       avatar: avatarFileName,
+      _id: petId,
       ...petDto
     };
 
@@ -373,6 +377,7 @@ export class PetsService {
   private async uploadAvatarToBucket(
     { createReadStream, mimetype }: any,
     ownerIds: string[],
+    petId: string,
     id = uuid()
   ): Promise<string> {
     const stream = createReadStream();
@@ -390,7 +395,7 @@ export class PetsService {
 
     const [{ name: bucketFilePath }] = await this._bucket.upload(filePath, {
       gzip: true,
-      destination: `pet-photos/${fileName}`
+      destination: `pet-photos/${petId}/${fileName}`
     });
 
     const metadata = {
