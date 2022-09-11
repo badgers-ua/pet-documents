@@ -1,10 +1,5 @@
 import { InMemoryCache } from '@apollo/client/cache';
-import {
-  ApolloLink,
-  from as fromApollo,
-  fromPromise,
-  toPromise
-} from '@apollo/client/core';
+import { ApolloLink, from, fromPromise, toPromise } from '@apollo/client/core';
 import { ApolloClient, DefaultOptions } from '@apollo/client/core/ApolloClient';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
@@ -118,7 +113,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
 
   const client = new ApolloClient({
     connectToDevTools: !environment.production,
-    link: fromApollo([errorContext, mapperLink, authContext, uploadLink]),
+    link: from([errorContext, mapperLink, authContext, uploadLink]),
     cache,
     defaultOptions
   });
