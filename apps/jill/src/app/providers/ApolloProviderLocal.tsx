@@ -1,14 +1,21 @@
 import { InMemoryCache } from '@apollo/client/cache';
-import { concat, from } from '@apollo/client/core';
+import {
+  ApolloLink,
+  from as fromApollo,
+  fromPromise,
+  toPromise
+} from '@apollo/client/core';
 import { ApolloClient, DefaultOptions } from '@apollo/client/core/ApolloClient';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { ApolloProvider } from '@apollo/client/react/context/ApolloProvider';
+import { IPetResDto } from '@pdoc/types';
 import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
-import { useSigninCheck } from 'reactfire';
+import { useSigninCheck, useStorage } from 'reactfire';
 import { environment } from '../../environments/environment';
+import { getPetWithAvatar } from '../utils/factory.utils';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const createUploadLink = require('apollo-upload-client/public/createUploadLink.js');
 
@@ -20,6 +27,7 @@ const apiUrl = `${environment.apiUrl}/graphql`;
 
 const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
   const { data } = useSigninCheck();
+  const storage = useStorage();
   const { enqueueSnackbar } = useSnackbar();
   const [cacheLoaded, setCacheLoaded] = useState(false);
 
@@ -39,7 +47,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     return null;
   }
 
-  const authLink = setContext(async (_, { headers }) => {
+  const authContext = setContext(async (_, { headers }) => {
     const token = await data?.user?.getIdToken();
 
     return {
@@ -50,7 +58,7 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     };
   });
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
+  const errorContext = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
       graphQLErrors.forEach(({ message, locations, path }) => {
         console.log(
@@ -64,13 +72,53 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     }
   });
 
+  const mapperLink = new ApolloLink((operation, forward) => {
+    return fromPromise(
+      toPromise(forward(operation)).then(async (res) => {
+        if (
+          operation.query.definitions.some(
+            (d) => d.kind === 'FragmentDefinition' && d.name.value === 'Pet'
+          )
+        ) {
+          const isArrayOfPets = 'getPets' in (res?.data ?? {});
+
+          if (isArrayOfPets) {
+            const petsWithAvatars: IPetResDto[] = [];
+
+            for (const pet of res?.data?.['getPets'] ?? []) {
+              petsWithAvatars.push(await getPetWithAvatar(storage, pet));
+            }
+
+            return {
+              ...res,
+              data: {
+                ...res.data,
+                getPets: petsWithAvatars
+              }
+            };
+          }
+
+          const pet: IPetResDto = res?.data?.['getPet'];
+
+          return {
+            ...res,
+            data: {
+              ...res.data,
+              getPet: await getPetWithAvatar(storage, pet)
+            }
+          };
+        }
+
+        return res;
+      })
+    );
+  });
+
   const uploadLink = createUploadLink({ uri: apiUrl });
-  const authenticatedHttpLink = concat(authLink, uploadLink);
-  const link = from([errorLink, authenticatedHttpLink]);
 
   const client = new ApolloClient({
     connectToDevTools: !environment.production,
-    link,
+    link: fromApollo([errorContext, mapperLink, authContext, uploadLink]),
     cache,
     defaultOptions
   });

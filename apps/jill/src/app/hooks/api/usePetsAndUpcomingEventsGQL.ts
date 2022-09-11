@@ -12,7 +12,7 @@ export type PetsAndUpcomingEvents = {
   todayEvents: IEventResDto[];
 } & isLoading;
 
-interface PetsAndUpcomingEventsGQLRes {
+export interface PetsAndUpcomingEventsGQLRes {
   getPets: IPetResDto[];
   getUpcomingEvents: IEventResDto[];
 }

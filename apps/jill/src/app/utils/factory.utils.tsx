@@ -1,4 +1,4 @@
-import { EVENT, GENDER, SPECIES } from '@pdoc/types';
+import { EVENT, GENDER, IPetResDto, SPECIES } from '@pdoc/types';
 import { FirebaseStorage, getDownloadURL, ref } from 'firebase/storage';
 import i18next from 'i18next';
 import { orderBy } from 'lodash';
@@ -100,4 +100,17 @@ export const getBucketDownloadUrl = async (
     console.error('Failed generate avatar url');
     return;
   }
+};
+
+export const getPetWithAvatar = async (
+  storage: FirebaseStorage,
+  pet: IPetResDto
+) => {
+  const petWithAvatar: IPetResDto = {
+    ...pet,
+    avatar: pet.avatar
+      ? await getBucketDownloadUrl(storage, pet.avatar)
+      : pet.avatar
+  };
+  return petWithAvatar;
 };
