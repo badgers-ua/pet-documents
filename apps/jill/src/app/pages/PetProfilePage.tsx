@@ -164,8 +164,14 @@ const PetProfilePage = () => {
   const updatePetLink = `/update-pet/${petId}`;
   const createEventLink = `/create-event/${petId}`;
 
-  useKeyPress({ key: 'e', route: updatePetLink });
-  useKeyPress({ key: 'n', route: createEventLink });
+  const isSomeDialogOpened =
+    addOwnerPetDialogOpen ||
+    removeOwnerPetDialogOpen ||
+    deletePetDialogOpen ||
+    deleteEventDialogState.isOpen;
+
+  useKeyPress({ key: 'e', route: updatePetLink, pause: isSomeDialogOpened });
+  useKeyPress({ key: 'n', route: createEventLink, pause: isSomeDialogOpened });
 
   const emailValidationSchema = Yup.object({
     email: Yup.string()
