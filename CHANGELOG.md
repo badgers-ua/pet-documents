@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.4
+
+_Sep 11, 2022_
+
+- Client side avatars load
+
 ## v1.7.3
 
 _Sep 10, 2022_
