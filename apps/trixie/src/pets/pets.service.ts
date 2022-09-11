@@ -64,7 +64,7 @@ export class PetsService {
     ownerId: string,
     petDto: PatchPetReqDto
   ): Promise<PatchedPetResDto> {
-    const existingPet = await this.petModel
+    const existingPet: PetDocument = await this.petModel
       .findById(new mongoose.Types.ObjectId(petId))
       .exec();
 
@@ -86,7 +86,10 @@ export class PetsService {
     let newFileBucketPath: string | null = null;
 
     if (petDto.isAvatarChanged) {
-      newFileBucketPath = await this.uploadAvatarToBucket(avatar);
+      newFileBucketPath = await this.uploadAvatarToBucket(
+        avatar,
+        existingPet.owners
+      );
     }
 
     const { _id } = await this.petModel
@@ -320,7 +323,7 @@ export class PetsService {
     }
 
     const avatarFileName: string = !!avatar
-      ? await this.uploadAvatarToBucket(avatar)
+      ? await this.uploadAvatarToBucket(avatar, [ownerId])
       : null;
 
     const newPet: Pet = {
@@ -376,6 +379,7 @@ export class PetsService {
 
   private async uploadAvatarToBucket(
     { createReadStream, mimetype }: any,
+    ownerIds: string[],
     id = uuid()
   ): Promise<string> {
     const stream = createReadStream();
@@ -395,6 +399,14 @@ export class PetsService {
       gzip: true,
       destination: `pet-photos/${fileName}`
     });
+
+    const metadata = {
+      ...Object.fromEntries(ownerIds.map((id: string) => [id, id]))
+    };
+
+    this._bucket.file(bucketFilePath).setMetadata({ metadata });
+
+    // setMetadata({ metadata });
 
     unlinkSync(filePath);
 
