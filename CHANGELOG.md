@@ -1,5 +1,11 @@
 # Versions
 
+## v1.7.6
+
+_Sep 11, 2022_
+
+- Fixed keyboard events on pet profiles used close open modals
+
 ## v1.7.5
 
 _Sep 11, 2022_
