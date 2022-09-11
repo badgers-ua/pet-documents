@@ -1,6 +1,6 @@
 import { TransformFnParams } from 'class-transformer';
+import { isNumber } from 'lodash';
 import { DateTime } from 'luxon';
-import { isNumber } from './type-checker.utils';
 
 export const fromEntriesFormatter = (iterable: [string, any][]) => {
   if (!iterable?.length) {
