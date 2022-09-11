@@ -48,7 +48,6 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     return {
       headers: {
         ...headers,
-        'apollo-require-preflight': true,
         authorization: `Bearer ${token}`
       }
     };
@@ -110,7 +109,12 @@ const ApolloProviderLocal = ({ children }: { children: JSX.Element }) => {
     );
   });
 
-  const uploadLink = createUploadLink({ uri: apiUrl });
+  const uploadLink = createUploadLink({
+    uri: apiUrl,
+    headers: {
+      'apollo-require-preflight': true
+    }
+  });
 
   const client = new ApolloClient({
     connectToDevTools: !environment.production,
