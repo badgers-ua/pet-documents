@@ -7,11 +7,11 @@
 
 # Structure
 
-| Codebase              |                 Description                  |
-| :-------------------- | :------------------------------------------: |
-| [jill](apps/jill)     | React Frontend (Hosted on: http://p-doc.com) |
-| [trixie](apps/trixie) |                 Nest.js API                  |
-| [types](libs/types)   |                Shared typings                |
+| Codebase              |  Description   |
+| :-------------------- | :------------: |
+| [jill](apps/jill)     | React Frontend |
+| [trixie](apps/trixie) |  Nest.js API   |
+| [types](libs/types)   | Shared typings |
 
 ## Pre Requirements
 
