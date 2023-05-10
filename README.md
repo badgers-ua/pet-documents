@@ -3,7 +3,7 @@
 </p>
 
   <p align="center">Web app to store and manage you pet's documents. </br>
-  Hosted on: <a href="https://p-doc.com" target="_blank">https://p-doc.com</a><p align="center">
+  <!-- Hosted on: <a href="https://p-doc.com" target="_blank">https://p-doc.com</a><p align="center"> -->
 
 # Structure
 
@@ -24,7 +24,7 @@ Create a [Firebase](https://firebase.google.com) project with enabled **Google A
 
 ### [trixie:](apps/trixie)
 
-1. Add `environments.ts` file to the root of [trixie/src/environments](apps/trixie/src/environments) with following structure:
+1. Add `environment.ts` file to the root of [trixie/src/environments](apps/trixie/src/environments) with following structure:
 
 ```
 export const environment = {
@@ -41,7 +41,7 @@ export const environment = {
 
 ### [jill:](apps/jill)
 
-1. Add `environments.ts` file to the root of [jill/src/environments](apps/jill/src/environments) with following structure:
+1. Add `environment.ts` file to the root of [jill/src/environments](apps/jill/src/environments) with following structure:
 
 ```
 import appVersion from '../app-version';
@@ -50,7 +50,7 @@ export const environment = {
   production: false,
   appVersion: appVersion,
   apiUrl: 'http://localhost:5001',
-  firebaseConfig: 'YOUR_FIREBASSE_CONFIG',
+  firebaseConfig: 'YOUR_FIREBASE_CONFIG',
 };
 
 ```
